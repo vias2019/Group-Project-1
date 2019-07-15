@@ -5,24 +5,25 @@
     <meta charset="UTF-8">
     <meta name=“viewport” content=“width=device-width, initial-scale=1.0">
     <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
+    <title>Buy Together</title>
 
     <!-- Link to Bootstrap -->
-   <!-- Link to Bootstrap -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <!-- Link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Link to Font Awesome -->
     <script src="https://kit.fontawesome.com/2f14113866.js"></script>
 
-    <!-- Link to the jQuery Library -->
-    <script src=“https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js“> </script> 
+    <!-- Moment.js REFERENCE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
     <!-- Link to external stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
-    <!-- <link rel="stylesheet" href="assets/css/style-page2.css"> -->
 
-    <title>Buy Together</title>
 
 </head>
 
@@ -87,19 +88,25 @@
         <span id='payee2'>
             <input type='number' class=“form-control” id=“price2” placeholder="Amount Owed">
             <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
-            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment <span></span><button
+            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment <button
                 type="submit" class="btn btn-primary btn-sm">Submit</button>
-            <br>
-            <br>
         </span>
-        <!-- <br>
-        <br> -->
+        <br>
+        <br>
+        <br>
+     
 
-    </div>
-    </footer>
-    </div>
+        <div class="container">
+            <p id="time">Current Time: <span id="current-time"></span></p>
+        </div>
 
-    <br>
+        <footer>
+        </footer>
+
+        <br>
+
+
+        <script src="assets/scripts/app.js"></script>
 
 </body>
 
