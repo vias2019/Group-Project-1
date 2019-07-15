@@ -7,14 +7,16 @@
     <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
 
     <!-- Link to Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <!-- Link to Bootstrap -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
     <!-- Link to Font Awesome -->
     <script src="https://kit.fontawesome.com/2f14113866.js"></script>
 
     <!-- Link to the jQuery Library -->
-    <!-- <script src=“https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js“> </script>  -->
+    <script src=“https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js“> </script> 
 
     <!-- Link to external stylesheets -->
     <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
@@ -37,29 +39,31 @@
             <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Start Shopping Now</a> -->
         </div>
     </div>
-</div>
-<div class="container">
-<h4 id="Process-sale">Process sale - Step2</h4>
-<br>
-<br>
-<span class='product-info'> 
-    <span><img id='picture' src="" alt="Picture"></span>
-    <span id='product-name'>Product Name</span>
-    <span id='product-price'>Price</span>
-</span>
-</div>
+    </div>
+    <div class="container">
+        <h4 id="Process-sale">Process sale - Step2</h4>
+        <br>
+        <br>
+        <span class='product-info'>
+            <span><img id='picture' src="" alt="Picture"></span>
+            <span id='product-name'>Product Name</span>
+            <span id='product-price'>Price</span>
+        </span>
+    </div>
     <br>
     <div class="container">
         <form>
             <div class=“form-group bg-primary lead text-white p-3”>
                 <label for=“sale-id”>Type Sale ID</label>
                 <input type=“number” class=“form-control” id=“sale-id”>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
             </div>
         </form>
         <label for="payee-name">Select Your Name<br> </label>
-        <select id="payee-name" placeholder="2>
-                              <option id=" option1" value=''></option>
+        <select id="payee-name" placeholder='2'>
+            <option id=" option1" value=''>Payer 2</option>
+            <option id=" option1" value=''>Payer 3</option>
+            <option id=" option1" value=''>Payer 4</option>
         </select>
     </div>
     <br>
@@ -73,7 +77,7 @@
             </div>
         </div>
         <span id='payee1'>
-            <input type='number' class=“form-control” id=“price1”>
+            <input type='number' class=“form-control” id=“price1” placeholder="Amount Paid">
             <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
             <span>Paid</span>
 
@@ -81,24 +85,20 @@
         <br>
         <br>
         <span id='payee2'>
-            <input type='number' class=“form-control” id=“price2”>
+            <input type='number' class=“form-control” id=“price2” placeholder="Amount Owed">
             <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
-            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment<br>
-
+            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment <span></span><button
+                type="submit" class="btn btn-primary btn-sm">Submit</button>
+            <br>
+            <br>
         </span>
-        <br>
-<br>
-        <!-- <ul class=“list-group”>
-                <li class=“list-group-item active lead”>Contributors</li>
-                <li class=“list-group-item”>Viktoriya Gishkina</li>
-                <li class=“list-group-item”>Bradt Strom</li>
-                <li class=“list-group-item”>Erik Halbakken</li>
-                <li class=“list-group-item”>Raju Chamarasinghe</li>
-            </ul> -->
+        <!-- <br>
+        <br> -->
+
     </div>
     </footer>
     </div>
-    
+
     <br>
 
 </body>
