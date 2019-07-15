@@ -5,22 +5,25 @@
     <meta charset="UTF-8">
     <meta name=“viewport” content=“width=device-width, initial-scale=1.0">
     <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
+    <title>Buy Together</title>
 
     <!-- Link to Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <!-- Link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!-- Link to Font Awesome -->
     <script src="https://kit.fontawesome.com/2f14113866.js"></script>
 
-    <!-- Link to the jQuery Library -->
-    <!-- <script src=“https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js“> </script>  -->
+    <!-- Moment.js REFERENCE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
     <!-- Link to external stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
-    <!-- <link rel="stylesheet" href="assets/css/style-page2.css"> -->
 
-    <title>Buy Together</title>
 
 </head>
 
@@ -38,34 +41,31 @@
         </div>
     </div>
     <div class="container">
-    <h4 id="Process-sale">Process sale - Step1</h4>
-    <br>
-    <br>
-    <span class='product-info'> 
-        <span><img id='picture' src="" alt="Picture"></span>
-        <span id='product-name'>Product Name</span>
-        <span id='product-price'>Price</span>
-    </span>
+        <h4 id="Process-sale">Process sale - Step1</h4>
+        <br>
+        <br>
+        <span class='product-info'>
+            <span><img id='picture' src="" alt="Picture"></span>
+            <span id='product-name'>Product Name</span>
+            <span id='product-price'>Price</span>
+        </span>
     </div>
     <br>
     <div class="container">
-        <form>
+        <!-- <form>
             <div class=“form-group bg-primary lead text-white p-3”>
                 <label for=“find-store”>Find Nearest Store</label>
                 <input type=“number” class=“form-control” id=“find-store” placeholder=98101>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-        </form>
+        </form> -->
         <label for="number-payees">Select Number of Payees <br> </label>
         <select id="number-of-payees" placeholder='2'>
-                              <option id=" option1" value='1'>1</option>
-                              <option id=" option2" value='2'>2</option>
-                              <option id=" option2" value='3'>3</option>
+            <option id=" option1" value='1'>1</option>
+            <option id=" option2" value='2'>2</option>
+            <option id=" option2" value='3'>3</option>
         </select>
     </div>
-    <br>
-    <br>
-    <br>
     <br>
     <br>
     <div class="container">
@@ -74,27 +74,27 @@
             </div>
         </div>
 
-        <span id = 'payee1'>
-                <input type='number' class=“form-control” id=“price1” >
-                <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
-                <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment<br>
-
+        <span id='payee1'>
+            <input type='number' class=“form-control” id=“price1”>
+            <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
+            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment <button
+                type="submit" class="btn btn-primary btn-sm">Submit</button>
         </span>
         <br>
         <br>
-        
-        <!-- <ul class=“list-group”>
-                <li class=“list-group-item active lead”>Contributors</li>
-                <li class=“list-group-item”>Viktoriya Gishkina</li>
-                <li class=“list-group-item”>Bradt Strom</li>
-                <li class=“list-group-item”>Erik Halbakken</li>
-                <li class=“list-group-item”>Raju Chamarasinghe</li>
-            </ul> -->
-    </div>
-    </footer>
-    </div>
-    
-    <br>
+        <br>
+
+        <div class="container">
+            <p id="time">Current Time: <span id="current-time"></span></p>
+        </div>
+
+        <footer>
+        </footer>
+
+        <br>
+
+
+        <script src="assets/scripts/app.js"></script>
 
 </body>
 
