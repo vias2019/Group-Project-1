@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Buy Together</title>
 
         <!-- Link to Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+        />
 
         <!-- Link to the jQuery Library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -21,80 +24,62 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
         <!-- Link to external stylesheets -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/style.css" />
         <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
-
-
     </head>
 
     <body>
-
         <!-- jumbotron -->
         <div class="container">
             <div class="jumbotron">
-                <h1 class="display-4">Buy Together <span style="font-size: 55px; color: green;"><i
-                            class="fas fa-money-bill"></i></span>
+                <h1 class="display-4">
+                    Buy Together
+                    <span style="font-size: 55px; color: green;"
+                        ><i class="fas fa-money-bill"></i
+                    ></span>
                 </h1>
                 <h4>Take the Hassel Out of Buying Gifts as a Group.</h4>
-                <!-- <hr class="my-4"> -->
-                <!-- <p>Hope that contribution will make a difference in the lives of us.</p> -->
-                <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Start Shopping Now</a> -->
             </div>
         </div>
 
         <div class="container">
-            <form>
-                <div class=“form-group bg-primary lead text-white p-3”>
-                    <label for=“formGroupExampleInput”>Search For a Product</label>
-                    <input type=“text” class=“form-control” id=“formGroupExampleInput” placeholder=Laptops>
-                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+            <a href="index.html" class="btn btn-danger">Go Back</a>
+            <a href="./page3.html" class="btn btn-success">Pay My Share Now</a>
+
+            <form class="my-4">
+                <div class="form-group">
+                    <label for="search-term">Search For a Product</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="search-term"
+                        placeholder="Laptops"
+                    />
                 </div>
-                <a href="index.html">Go Back</a>
-                <br>
-                <br>
-                <div class=“form-group bg-primary lead text-white p-3”>
-                    <!-- <label for=“formGroupExampleInput”></label> -->
-                    <a href="./page3.html" class="btn btn-primary" role="button">Pay My Share Now</a>
-                </div>
+                <button
+                    type="submit"
+                    id="button-search"
+                    class="btn btn-primary"
+                >
+                    Search
+                </button>
             </form>
         </div>
 
-        <br>
+        <br />
 
-        <!-- search results -->
-        <div class="container">
-            <div class="card" style="width: 18rem;" id="products">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Product Name</h5>
-                    <p class="card-text">Product Description</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Price</li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">Buy Now</a>
-                    <!-- <a href="#" class="card-link">Another link</a> -->
-                </div>
+        <!-- Search Results -->
+        <div id="results-container" class="container">
+            <!-- Dynamic content loaded here -->
+        </div>
+
+        <footer class="mt-5">
+            <div class="container">
+                <p id="time">Current Time: <span id="current-time"></span></p>
             </div>
-        </div>
-
-        <br>
-        <br>
-        <br>
-
-        <div class="container">
-            <p id="time">Current Time: <span id="current-time"></span></p>
-        </div>
-
-        <footer>
         </footer>
-
-        <br>
 
         <script src="assets/scripts/etsy.js"></script>
         <script src="assets/scripts/app.js"></script>
-
     </body>
-
 </html>
