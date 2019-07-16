@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .val()
             .trim()
             .toLowerCase();
+        if (searchTerm === '') {
+            // Nothing to search...
+            return;
+        }
 
         const ETSY = new EtsyAPI();
         ETSY.getListings(searchTerm, $resultsContainer);
