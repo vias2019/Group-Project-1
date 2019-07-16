@@ -1,5 +1,3 @@
-const ETSY = new EtsyAPI();
-
 document.addEventListener('DOMContentLoaded', function() {
     // Create interval to update displayed current time
     setInterval(function() {
@@ -17,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .val()
             .trim()
             .toLowerCase();
+
+        const ETSY = new EtsyAPI();
         ETSY.getListings(searchTerm, $resultsContainer);
     });
 });
