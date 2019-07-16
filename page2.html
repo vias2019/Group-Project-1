@@ -23,7 +23,9 @@
     <!-- Link to external stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
-
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <script src="assets/scripts/page2.js"></script>
 
 </head>
 
@@ -42,6 +44,7 @@
     </div>
     <div class="container">
         <h4 id="Process-sale">Process sale - Step1</h4>
+        <a href="page1.html">Go Back</a>
         <br>
         <br>
         <span class='product-info'>
@@ -59,8 +62,12 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form> -->
+        <label for=“order-number”>Order Number </label>
+        <input type='text' class=“form-control” id=“order-number”>
+        <br>
         <label for="number-payees">Select Number of Payees <br> </label>
-        <select id="number-of-payees" placeholder='2'>
+        <select id="number-of-payees">
+            <option id=" option1" value='None'>None</option>
             <option id=" option1" value='1'>1</option>
             <option id=" option2" value='2'>2</option>
             <option id=" option2" value='3'>3</option>
@@ -74,12 +81,17 @@
             </div>
         </div>
 
-        <span id='payee1'>
+        <div id ='payees'>
+        <!-- <span id='payee1'>
             <input type='number' class=“form-control” id=“price1”>
             <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
-            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment <button
-                type="submit" class="btn btn-primary btn-sm">Submit</button>
+            <input type="checkbox" name="payment-confirmation" id='checkbox1'> Confirm Your Payment -->
+            <br> 
+            <br>
         </span>
+        </div>
+        <button id = 'page2button' type="submit" class="btn btn-primary btn-sm">Submit</button>
+
         <br>
         <br>
         <br>
@@ -94,7 +106,6 @@
         <br>
 
 
-        <script src="assets/scripts/app.js"></script>
 
 </body>
 
