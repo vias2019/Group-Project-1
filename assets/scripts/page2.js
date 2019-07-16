@@ -18,16 +18,15 @@ $(document).ready(function () {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 9; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
+    console.log(typeof (result));
     return result;
   }
   makeid();
- var x= $('#order-number').val('vika');
-  $('#order-number').text(x);
+  $("#order-number").text(makeid());
   console.log(makeid());
- // document.getElementById("order-number").value=makeid();
 
   $('#number-of-payees').change(function () {
     var numberOfPayees = $('#number-of-payees').val();
@@ -46,31 +45,8 @@ $(document).ready(function () {
   });
 
 
-  var payee1Pay = '';
-  var payee2Pay = '';
-  var payee3Pay = '';
 
-  $('#checkbox1').change(
-    function () {
-      if ($(this).is(':checked')) {
-        payee1Pay = $('#price1').val();
-      }
-    });
-  $('#checkbox2').change(
-    function () {
-      if ($(this).is(':checked')) {
-        payee2Pay = $('#price2').val();
-      }
-    });
-  $('#checkbox3').change(
-    function () {
-      if ($(this).is(':checked')) {
-        payee3Pay = $('#price3').val();
-      }
-    });
-
-
-  $("#page2button").on("click", function (event) {
+  $("#page2button").on("click", function () {
     event.preventDefault();
     console.log('clicked');
 
@@ -80,10 +56,13 @@ $(document).ready(function () {
     var productName = '';
     var productPrice = '';
     var payee1Name = '';
-    console.log(payee1Name);
     var payee2Name = '';
     var payee3Name = '';
+    var payee1Pay = '';
+    var payee2Pay = '';
+    var payee3Pay = '';
 
+    //if id exists.....
     if ($("#payee1-name").length) {
       payee1Name = $('#payee1-name').val();
     }
@@ -93,7 +72,30 @@ $(document).ready(function () {
     if ($("#payee3-name").length) {
       payee3Name = $('#payee3-name').val();
     }
+    if ($("#price1").length) {
+      payee1Pay = $('#price1').val();
+    }
+    if ($("#price2").length) {
+      payee2Pay = $('#price2').val();
+    }
+    if ($("#price3").length) {
+      payee3Pay = $('#price3').val();
+    }
 
+    var payee1PaidUnpaid = '';
+    var payee2PaidUnpaid = '';
+    var payee3PaidUnpaid = '';
+
+    if ($('#checkbox1').is(':checked')) {
+      payee1PaidUnpaid = 'paid';
+    }
+    if ($('#checkbox2').is(':checked')) {
+      payee2PaidUnpaid = 'paid';
+    }
+    if ($('#checkbox3').is(':checked')) {
+      payee3PaidUnpaid = 'paid';
+    }
+    console.log(payee1PaidUnpaid);
 
     var newObjectRecord = {
       orderId: orderId,
@@ -102,12 +104,18 @@ $(document).ready(function () {
       price: productPrice,
       payee1Name: payee1Name,
       payee1Pay: payee1Pay,
+      paid1: payee1PaidUnpaid,
       payee2Name: payee2Name,
       payee2Pay: payee2Pay,
+      paid2: payee2PaidUnpaid,
       payee3Name: payee3Name,
-      payee3Pay: payee3Pay
+      payee3Pay: payee3Pay,
+      paid3: payee3PaidUnpaid
     };
     buyTogetherFirebase.push(newObjectRecord);
+   //location.reload(true);
+   //add notice
+    window.location.href = "page1.html";
   });
 
 

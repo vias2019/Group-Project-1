@@ -25,7 +25,9 @@
     <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    
     <script src="assets/scripts/page2.js"></script>
+    <script src="assets/scripts/app.js"></script>
 
 </head>
 
@@ -62,8 +64,9 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form> -->
-        <label for=“order-number”>Order Number </label>
-        <input type='text' class=“form-control” id=“order-number”>
+        <!-- <label for=“order-number”>Order Number </label> -->
+        <!-- <input type='text' class=“form-control” id=“order-number” value=""> -->
+        <span>Order ID: </span><span id='order-number'></span>
         <br>
         <label for="number-payees">Select Number of Payees <br> </label>
         <select id="number-of-payees">
