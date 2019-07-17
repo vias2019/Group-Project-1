@@ -46,7 +46,7 @@ $(document).ready(function () {
 
 
 
-  $("#page2button").on("click", function () {
+  $("#page2button").on("click", function (event) {
     event.preventDefault();
     console.log('clicked');
 
@@ -115,8 +115,14 @@ $(document).ready(function () {
     buyTogetherFirebase.push(newObjectRecord);
    //location.reload(true);
    //add notice
-    window.location.href = "page1.html";
+
+    setTimeout(function () {
+            window.location.href = "page1.html";
+    },30000)
+    
   });
 
 
 });
+
+
