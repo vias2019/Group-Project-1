@@ -12,6 +12,19 @@ class Listing {
         this.currency = data.currency_code;
         this.url = data.url;
         this.images = [];
+        this.priceUSD = this.setPriceUSD();
+    }
+
+    isUSD() {
+        return this.currency === 'USD';
+    }
+
+    setPriceUSD() {
+        if (this.currency === 'USD') {
+            return this.price;
+        }
+
+        return convertToUSD(parseFloat(this.price), this.currency);
     }
 }
 
@@ -76,16 +89,21 @@ class EtsyAPI {
     createListingCard(listing) {
         let $card = $('<div>')
             .addClass('card my-2')
-            .css({ width: '20rem', position: 'relative' });
+            .css({ width: '18rem', position: 'relative' });
         let $img = $('<img>')
             .attr('src', listing.images[0])
             .addClass('card-img-top');
         let $body = $('<div>').addClass('card-body');
         let $title = $('<h5>')
-            .text(listing.item)
+            .html(listing.item)
             .addClass('card-title');
+
+        let priceString = `$${listing.price} ${listing.currency}`;
+        if (!listing.isUSD()) {
+            priceString += ` ($${listing.priceUSD} USD)`;
+        }
         let $price = $('<h6>')
-            .text(`$${listing.price} ${listing.currency}`)
+            .text(priceString)
             .addClass('card-subtitle mb-2');
         let $modal = $('<div>')
             .addClass('modal')
@@ -103,7 +121,7 @@ class EtsyAPI {
                 localStorage.setItem('id', listing.id);
                 localStorage.setItem('name', listing.item);
                 localStorage.setItem('description', listing.description);
-                localStorage.setItem('price', listing.price);
+                localStorage.setItem('price', listing.priceUSD);
                 localStorage.setItem('images', JSON.stringify(listing.images));
                 // Navigate to next page
                 window.location.href = 'page2.html';
