@@ -22,7 +22,7 @@ class EtsyAPI {
         $(parentElement).empty();
 
         let resource = 'listings/active.js';
-        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}`;
+        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}&min_price=100`;
 
         $.ajax({
             url: getListingsUrl,
@@ -85,16 +85,39 @@ class EtsyAPI {
             .text(listing.item)
             .addClass('card-title');
         let $price = $('<h6>')
-            .text(`${listing.price} ${listing.currency}`)
+            .text(`$${listing.price} ${listing.currency}`)
             .addClass('card-subtitle mb-2');
-        let $desc = $('<p>').html(`${listing.description.slice(0, 250)}...`);
+        let $modal = $('<div>')
+            .addClass('modal')
+            .attr('id', `modal-${listing.id}`)
+            .css('padding', '20px');
+        let $desc = $('<p>').html(`${listing.description}`);
+        $modal.append($desc);
         let $btn = $('<a>')
             .attr('href', '#')
             .addClass('btn btn-primary')
             .css({ position: 'absolute', right: 0, bottom: 0, margin: '5px' })
-            .text('Details');
+            .text('Buy')
+            .on('click', function() {
+                // Store product info in localstorage
+                localStorage.setItem('id', listing.id);
+                localStorage.setItem('name', listing.item);
+                localStorage.setItem('description', listing.description);
+                localStorage.setItem('price', listing.price);
+                localStorage.setItem('images', JSON.stringify(listing.images));
+                // Navigate to next page
+                window.location.href = '../../page2.html';
+            });
 
-        $body.append($title, $price, $desc, $btn);
+        let $open = $('<a>')
+            .attr({
+                href: `#modal-${listing.id}`,
+                rel: 'modal:open'
+            })
+            .text('Details')
+            .on('click', function() {});
+
+        $body.append($title, $price, $btn, $modal, $open);
         $card.append($img, $body);
 
         return $card;
