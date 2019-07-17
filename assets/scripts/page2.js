@@ -27,7 +27,7 @@ $(document).ready(function() {
         console.log(typeof result);
         return result;
     }
-    makeid();
+  
     $('#order-number').text(makeid());
     console.log(makeid());
 
