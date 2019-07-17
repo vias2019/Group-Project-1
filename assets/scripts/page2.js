@@ -169,9 +169,7 @@ $(document).ready(function() {
         .attr('id', 'product-price')
         .text(`$${itemPrice.toFixed(2)}`);
 
-});
-
-
     $info.empty();
     $info.append($image, $name, $price);
+
 });
