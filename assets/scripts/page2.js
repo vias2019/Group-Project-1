@@ -58,6 +58,9 @@ $(document).ready(function() {
         event.preventDefault();
         console.log('clicked');
 
+  $("#page2button").on("click", function (event) {
+    event.preventDefault();
+    console.log('clicked');
         var orderId = makeid();
         //add API reference to the three lines below
         var productPicture = '';
@@ -126,6 +129,30 @@ $(document).ready(function() {
         window.location.href = 'page1.html';
     });
 
+    var newObjectRecord = {
+      orderId: orderId,
+      productPicture: productPicture,
+      productName: productName,
+      price: productPrice,
+      payee1Name: payee1Name,
+      payee1Pay: payee1Pay,
+      paid1: payee1PaidUnpaid,
+      payee2Name: payee2Name,
+      payee2Pay: payee2Pay,
+      paid2: payee2PaidUnpaid,
+      payee3Name: payee3Name,
+      payee3Pay: payee3Pay,
+      paid3: payee3PaidUnpaid
+    };
+    buyTogetherFirebase.push(newObjectRecord);
+   //location.reload(true);
+   //add notice
+
+    setTimeout(function () {
+            window.location.href = "page1.html";
+    },30000)
+    
+  });
     // Get product info from localstorage and add to screen
     let itemName = localStorage.getItem('name');
     let itemImages = JSON.parse(localStorage.getItem('images'));
@@ -141,6 +168,9 @@ $(document).ready(function() {
     let $price = $('<p>')
         .attr('id', 'product-price')
         .text(`$${itemPrice.toFixed(2)}`);
+
+});
+
 
     $info.empty();
     $info.append($image, $name, $price);
