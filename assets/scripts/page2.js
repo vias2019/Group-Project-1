@@ -36,7 +36,7 @@ $(document).ready(function () {
 
       $('#payees').append(
         "<span id='payee" + (i + 1) + "'>" +
-        "<input type='number' class='form-control' id='price" + (i + 1) + "'>" +
+        "<input type='number' class='form-control' id='price" + (i + 1) + "' placeholder='$'>" +
         "<input type='text' class='form-control' id='payee" + (i + 1) + "-name' placeholder='First Last Name'>" +
         "<input type='checkbox' name='payment-confirmation' id='checkbox" + (i + 1) + "'> Confirm Your Payment</input>" +
         "</span>"

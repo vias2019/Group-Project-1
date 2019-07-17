@@ -22,7 +22,7 @@ class EtsyAPI {
         $(parentElement).empty();
 
         let resource = 'listings/active.js';
-        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}`;
+        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}&min_price=100`;
 
         $.ajax({
             url: getListingsUrl,
@@ -92,7 +92,7 @@ class EtsyAPI {
             .attr('href', '#')
             .addClass('btn btn-primary')
             .css({ position: 'absolute', right: 0, bottom: 0, margin: '5px' })
-            .text('Details');
+            .text('Buy');
 
         $body.append($title, $price, $desc, $btn);
         $card.append($img, $body);
