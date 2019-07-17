@@ -106,7 +106,7 @@ class EtsyAPI {
                 localStorage.setItem('price', listing.price);
                 localStorage.setItem('images', JSON.stringify(listing.images));
                 // Navigate to next page
-                window.location.href = '../../page2.html';
+                window.location.href = 'page2.html';
             });
 
         let $open = $('<a>')
