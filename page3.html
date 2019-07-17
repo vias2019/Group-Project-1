@@ -57,10 +57,10 @@
     <br>
     <div class="container">
         <form>
-            <div class=“form-group bg-primary lead text-white p-3”>
-                <label for=“sale-id”>Type Sale ID</label>
-                <input type=“number” class=“form-control” id=“sale-id”>
-                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+            <div class="form-group bg-primary lead text-white p-3">
+                <label for="sale-id">Type Sale ID</label>
+                <input type="text" class="form-control" id="sale-id">
+                <button id='retrieve-order' type="button" class="btn btn-primary btn-sm">Submit</button>
             </div>
         </form>
         <label for="payee-name">Select Your Name<br> </label>
@@ -81,18 +81,18 @@
             </div>
         </div>
         <span id='payee1'>
-            <input type='number' class=“form-control” id=“price1” placeholder="Amount Paid">
-            <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
+            <input type='number' class="form-control" id="price1" placeholder="Amount Paid">
+            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
             <span>Paid</span>
 
         </span>
         <br>
         <br>
         <span id='payee2'>
-            <input type='number' class=“form-control” id=“price2” placeholder="Amount Owed">
-            <input type='text' class=“form-control” id=“payee1-name” placeholder='First Last Name'>
-            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment <button
-                type="submit" class="btn btn-primary btn-sm">Submit</button>
+            <input type='number' class="form-control" id="price2" placeholder="Amount Owed">
+            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
+            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment 
+            <button id='complete-order' type="submit" class="btn btn-primary btn-sm">Submit</button>
         </span>
         <br>
         <br>
@@ -109,7 +109,7 @@
         <br>
 
 
-        <script src="assets/scripts/app.js"></script>
+        <script src="assets/scripts/page3.js"></script>
 
 </body>
 
