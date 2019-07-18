@@ -8,6 +8,7 @@ function validatePayments(itemPrice) {
 
     // Verify sum of payments matches total product cost
     let sum = 0.0;
+    let valid = true;
     $('#payees .payment').each(function() {
         let $input = $(this)
             .val()
@@ -20,21 +21,25 @@ function validatePayments(itemPrice) {
                 'All payees must have a payment amount specified in order to create the order.'
             );
             $(this).focus();
+            valid = false;
             return false;
         }
+        
         let paymentValue = parseFloat($input);
         if (Number.isNaN(paymentValue) || paymentValue === 0.0) {
             // TODO - use modal
             alert(`${$input} is not a valid payment amount. Try again.`);
             $(this).focus();
+            valid = false;
             return false;
         }
         // We should have a valid payment amount if we reached this point....
         sum += paymentValue;
+        valid = true;
     });
 
     // Verify sum of payments matches item price
-    if (sum !== itemPrice) {
+    if (valid && sum !== itemPrice) {
         // TODO - use modal
         alert(
             `The total sum of payments must equal the product cost. A sum of $${sum.toFixed(
@@ -45,7 +50,7 @@ function validatePayments(itemPrice) {
     }
 
     // If we hit no errors, then the entered payment values are valid.
-    return true;
+    return valid;
 }
 
 $(document).ready(function() {
@@ -299,4 +304,6 @@ $(document).ready(function() {
         };
         buyTogetherFirebase.push(newObjectRecord);
     });
+
+    $("#new-order-close").on('click', () => window.location = "page1.html");
 });

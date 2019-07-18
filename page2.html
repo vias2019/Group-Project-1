@@ -107,7 +107,7 @@
 
                             <!-- Button trigger modal -->
                             <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal"
-                                data-target="#exampleModalCenter" id="page2button">
+                                data-target="#orderModelCenter" id="page2button">
                                 Submit
                             </button>
                         </div>
@@ -125,12 +125,12 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="orderModelCenter" tabindex="-1" role="dialog"
+            aria-labelledby="orderModelCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Order Complete</h5>
+                        <h5 class="modal-title" id="orderModelLongTitle">Order Complete</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -140,7 +140,7 @@
                         <span>Your Order ID: </span><span id="order-number"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="new-order-close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
