@@ -105,7 +105,9 @@ $(document).ready(function () {
             payee3PaidUnpaid = 'paid';
         }
         console.log(payee1PaidUnpaid);
-        var timer=moment().add(1,'hours');
+        console.log("timer:", expiration);
+        var expiration = moment().add(1, 'hours').unix();
+        
         var newObjectRecord = {
             orderId: orderId,
             productPicture: productPicture,
@@ -120,7 +122,7 @@ $(document).ready(function () {
             payee3Name: payee3Name,
             payee3Pay: payee3Pay,
             paid3: payee3PaidUnpaid,
-            time: timer
+            time: expiration
          
         };
         buyTogetherFirebase.push(newObjectRecord);
@@ -128,7 +130,7 @@ $(document).ready(function () {
         //add notice
         setTimeout(function () {
             window.location.href = "page1.html";
-        }, 30000);
+        }, 1000);
     });
 
     // Get product info from localstorage and add to screen
