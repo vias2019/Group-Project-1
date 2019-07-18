@@ -15,7 +15,7 @@ $(document).ready(function () {
     var buyTogetherFirebase = database.ref();
 
     var payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3, orderID;
-
+    var option;
     $('#retrieve-order').on('click', function (e) {
         e.preventDefault();
         orderID=$('#sale-id').val();
@@ -41,11 +41,16 @@ $(document).ready(function () {
             //var nameSnapshot = snapshot.child("name");
            // var name = nameSnapshot.val();
             $('#payee-name').append(
+                "<option id='option0' value=''> None</option>" +
                 "<option id='option1' value="+pay1+">" + payee1 + "</option>" +
-                "<option id='option1'  value="+pay2+">" + payee2 + "</option>" +
-                "<option id='option1' value="+pay3+">" + payee3 + "</option>"
+                "<option id='option2' value="+pay2+">" + payee2 + "</option>" +
+                "<option id='option3' value="+pay3+">" + payee3 + "</option>"
+               // text="+ payee1 +"
+
             );
             console.log('payees2: ', orderID, payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3);
+            var option = $('option:selected').val();
+            console.log(option);
         });
         // bCNE65uFl
 
@@ -53,8 +58,8 @@ $(document).ready(function () {
 
 
     $('#payee-name').change(function() {
-
-        var selectedPayee= $('#payee-name').text();
+        
+        var selectedPayee= $('#payee-name option:selected').text();
         console.log("selectedPayee:", selectedPayee);
 
         var selectedPayeePay=$('#payee-name').val();
