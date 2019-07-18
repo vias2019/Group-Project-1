@@ -29,65 +29,72 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
         <!-- Link to external stylesheets -->
-        <!-- <link rel="stylesheet" href="assets/css/style.css" /> -->
-        <link rel="stylesheet" href="assets/css/reset.css">
+        <link rel="stylesheet" href="assets/css/style.css" />
     </head>
 
     <body>
-        <!-- jumbotron -->
-        <div class="container">
-            <div class="jumbotron">
-                <h1 class="display-4">
-                    Buy Together
-                    <span style="font-size: 55px; color: green;"
-                        ><i class="fas fa-money-bill"></i
-                    ></span>
-                </h1>
-                <h4>Take the Hassel Out of Buying Gifts as a Group.</h4>
-            </div>
-        </div>
-
-        <br />
-
-        <div class="container">
-            <a href="index.html" class="btn btn-danger">Go Back</a>
-            <a href="./page3.html" class="btn btn-success">Pay My Share Now</a>
-
-            <form class="my-4">
-                <div class="form-group">
-                    <label for="search-term">Search For a Product</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="search-term"
-                        placeholder="Laptops"
-                    />
-                </div>
-                <button
-                    type="submit"
-                    id="button-search"
-                    class="btn btn-primary"
+        <header class="bg-light">
+            <div class="text-center py-3">
+                <h1
+                    class="display-4 font-weight-bold text-center d-inline-block"
                 >
-                    Search
-                </button>
-            </form>
-        </div>
-
-        <br />
-
-        <!-- Search Results -->
-        <div
-            id="results-container"
-            class="container d-flex flex-wrap justify-content-around"
-        >
-            <!-- Dynamic content loaded here -->
-        </div>
-
-        <footer class="mt-5">
-            <div class="container">
-                <p id="time">Current Time: <span id="current-time"></span></p>
+                    Buy Together
+                    <i class="fas fa-money-bill"></i>
+                </h1>
+                <p class="lead">
+                    Take the hassel out of buying gifts as a group.
+                </p>
             </div>
-        </footer>
+        </header>
+
+        <div class="container py-4">
+            <!-- Back & Pay Now buttons -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <a href="index.html" class="btn btn-danger btn-lg"
+                        >Go Back</a
+                    >
+                    <a href="./page3.html" class="btn btn-success btn-lg"
+                        >Pay My Share Now</a
+                    >
+                </div>
+            </div>
+
+            <!-- Item Search -->
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-inline my-4 d-flex">
+                        <div class="input-group input-group-lg w-100">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="search-term"
+                                placeholder="Search for an item"
+                            />
+                            <button
+                                type="submit"
+                                id="button-search"
+                                class="btn btn-primary mx-2 px-4"
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Search Results -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div
+                        id="results-container"
+                        class="d-flex flex-wrap justify-content-between"
+                    >
+                        <!-- Dynamic content loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="assets/scripts/exchangeRates.js"></script>
         <script src="assets/scripts/etsy.js"></script>
