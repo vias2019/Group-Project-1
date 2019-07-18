@@ -94,27 +94,37 @@ class EtsyAPI {
             .attr('src', listing.images[0])
             .addClass('card-img-top');
         let $body = $('<div>').addClass('card-body');
-        let $title = $('<h5>')
+        let $title = $('<h6>')
             .html(listing.item)
-            .addClass('card-title');
+            .addClass('card-subtitle pb-5');
 
         let priceString = `$${listing.price} ${listing.currency}`;
         if (!listing.isUSD()) {
             priceString += ` ($${listing.priceUSD} USD)`;
         }
-        let $price = $('<h6>')
+        let $price = $('<h5>')
             .text(priceString)
-            .addClass('card-subtitle mb-2');
+            .addClass('card-title mb-2 text-center');
         let $modal = $('<div>')
             .addClass('modal')
             .attr('id', `modal-${listing.id}`)
-            .css('padding', '20px');
-        let $desc = $('<p>').html(`${listing.description}`);
-        $modal.append($desc);
+            .css({ padding: '20px', overflow: 'initial', height: 'auto' });
+        let $modalHead = $('<h5>').html(listing.item);
+        let $modalPrice = $('<h6>').text(`Price: $${listing.priceUSD}`).css('font-weight','bold');
+        let $desc = $('<p>')
+            .addClass('mb-5')
+            .html(`${listing.description.trim()}`);
+        let $modalClose = $('<a>')
+            .attr({'href':'#', 'rel':'modal:close'})
+            .addClass('btn btn-danger')
+            .css({ position: 'absolute', bottom: '10px' })
+            .text('Close');
+        let $rule = $('<hr>');
+        $modal.append($modalHead, $rule, $modalPrice, $desc, $modalClose);
         let $btn = $('<a>')
             .attr('href', '#')
-            .addClass('btn btn-primary')
-            .css({ position: 'absolute', right: 0, bottom: 0, margin: '5px' })
+            .addClass('btn btn-primary m-3 px-4')
+            .css({ position: 'absolute', right: 0, bottom: 0 })
             .text('Buy')
             .on('click', function() {
                 // Store product info in localstorage
@@ -127,15 +137,16 @@ class EtsyAPI {
                 window.location.href = 'page2.html';
             });
 
-        let $open = $('<a>')
+        let $details = $('<a>')
             .attr({
                 href: `#modal-${listing.id}`,
                 rel: 'modal:open'
             })
-            .text('Details')
-            .on('click', function() {});
+            .addClass('btn btn-outline-primary m-3 px-4')
+            .css({'position':'absolute', 'bottom':'0', 'left':'0'})
+            .text('Details');
 
-        $body.append($title, $price, $btn, $modal, $open);
+        $body.append($price, $rule, $title, $btn, $modal, $details);
         $card.append($img, $body);
 
         return $card;
