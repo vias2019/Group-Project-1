@@ -1,99 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Buy Together</title>
 
-    <!-- Link to Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Buy Together</title>
 
-    <!-- Link to the jQuery Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Link to Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous" />
 
-    <!-- Link to Font Awesome -->
-    <script src="https://kit.fontawesome.com/2f14113866.js"></script>
+        <!-- Link to Font Awesome -->
+        <script src="https://kit.fontawesome.com/2f14113866.js"></script>
 
-    <!-- Moment.js REFERENCE -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <!-- Link to external stylesheets -->
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <link rel="stylesheet" href="assets/css/landing-page.css" />
+    </head>
 
-    <!-- Link to external stylesheets -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
+    <body>
+        <!-- Bootstrap grid container -->
+        <div class="container">
+            <!-- Jumbotron -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron bg-light shadow-lg my-4 py-4">
+                        <h1 class="display-4 d-inline-block">
+                            Buy Together
+                            <i class="fas fa-money-bill"></i>
+                        </h1>
+                        <h2 class="lead">
+                            Take the hassel out of buying gifts as a group.
+                        </h2>
+                        <hr class="my-4">
+                        <p class="lead">
+                            How many times have you bought a present for someone with a group of people only to get
+                            stuck paying more than your share? Well, if you're anything like us, probably a few more
+                            times than you'd prefer.
+                        </p>
+                        <p class="lead">Enter "Buy Together".</p>
+                        <p class="lead">The new way to buy gifts as a group while ensuring you only pay what you said
+                            you'd pay.</p>
+                        <a href="./page1.html">
+                            <button class="btn btn-primary btn-lg">
+                                Start Shopping
+                            </button>
+                        </a>
+                    </div>
+                </div>
 
-
-</head>
-
-<body>
-
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">Buy Together <span style="font-size: 55px; color: green;"><i
-                        class="fas fa-money-bill"></i></span>
-            </h1>
-            <h4>Take the Hassel Out of Buying Gifts as a Group.</h4>
-            <!-- <hr class="my-4"> -->
-            <!-- <p>Hope that contribution will make a difference in the lives of us.</p> -->
-            <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Start Shopping Now</a> -->
-        </div>
-    </div>
-
-    <div class="container">
-        <h5>How many times have you bought a present for someone with a group of people only to get stuck paying more than your share? Well, if you're anything like us, 
-            probably a few more times than you'd prefer. 
-            <br>
-            <br>
-            Enter "Buy Together". 
-            <br>
-            <br>
-            The new way to buy gifts as a group while ensuring you only pay what you said you'd pay.
-        </h5>    </div>
-
-    <br>
-
-    <div class="container">
-        <form>
-            <div class=“form-group bg-primary lead text-white p-3”>
-                <!-- <label for=“formGroupExampleInput”>Search For a Product</label> -->
-                <!-- <input type=“text” class=“form-control” id=“formGroupExampleInput” placeholder=Laptops> -->
-                <a href="./page1.html" class="btn btn-primary" role="button">Start Shopping</a>
-                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
             </div>
-        </form>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <!-- <div class="container">
-        <ul class="contributors"">
-            <li >
-                <h3>Group Contributors</h3>
-            </li>
-            <li >Brandt Strom</li>
-            <li >Viktoriya Grishkina</li>
-            <li >Erik Halbakken</li>
-            <li >Raju Chamarasinghe</li>
-        </ul>
-    </div> -->
-    <br>
 
-    <!-- <div class="container">
-        <p id="time">Current Time: <span id="current-time"></span></p>
-    </div> -->
+        </div>
 
-    <footer>
-       <span>Project Contributors: </span> <span>|</span> <span>Brandt Strom</span> <span>|</span>   <span>Viktoriya Grishkina</span> <span>|</span>   <span>Erik Halbakken </span> <span>|</span>     <span>Raju Chamarasinghe</span>
-    </footer>
-
-    <br>
-
-
-    <script src="assets/scripts/app.js"></script>
-
-</body>
+        <!-- Footer -->
+        <footer>
+            <ul class="list-inline">
+                <li class="list-inline-item">Project Contributors:</li>
+                <li class="list-inline-item">Brandt Strom</li>
+                <li class="list-inline-item">|</li>
+                <li class="list-inline-item">Erik Halbakken</li>
+                <li class="list-inline-item">|</li>
+                <li class="list-inline-item">Raju Chamarasinghe</li>
+                <li class="list-inline-item">|</li>
+                <li class="list-inline-item">Viktoriya Grishkina</li>
+            </ul>
+        </footer>
+    </body>
 
 </html>

@@ -1,136 +1,157 @@
 <!DOCTYPE html>
 <html lang=“en”>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name=“viewport” content=“width=device-width, initial-scale=1.0">
-    <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
-    <title>Buy Together</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name=“viewport” content=“width=device-width, initial-scale=1.0">
+        <meta http-equiv=“X-UA-Compatible” content=“ie=edge”>
+        <title>Buy Together</title>
 
-    <!-- Link to Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Link to Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- Link to the jQuery Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Link to the jQuery Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!-- Link to Font Awesome -->
-    <script src="https://kit.fontawesome.com/2f14113866.js"></script>
+        <!-- Link to Font Awesome -->
+        <script src="https://kit.fontawesome.com/2f14113866.js"></script>
 
-    <!-- Moment.js REFERENCE -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <!-- Moment.js REFERENCE -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
-    <!-- Link to external stylesheets -->
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+        <!-- Link to external stylesheets -->
+        <link rel="stylesheet" href="assets/css/style.css">
 
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    </head>
 
-
-</head>
-
-<body>
-
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">Buy Together <span style="font-size: 55px; color: green;"><i
-                        class="fas fa-money-bill"></i></span>
-            </h1>
-            <h4>Take the Hassel Out of Buying Gifts as a Group.</h4>
-            <!-- <hr class="my-4"> -->
-            <!-- <p>Hope that contribution will make a difference in the lives of us.</p> -->
-            <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Start Shopping Now</a> -->
-        </div>
-    </div>
-    </div>
-    <div class="container">
-        <h4 id="Process-sale">Process sale - Step2</h4>
-        <br>
-        <br>
-        <span class='product-info'>
-            <span><img id='picture' src="" alt="Picture"></span>
-            <span id='product-name'>Product Name</span>
-            <span id='product-price'>Price</span>
-        </span>
-    </div>
-    <br>
-    <div class="container">
-        <form>
-            <div class="form-group">
-                <label for="sale-id">Type Sale ID</label>
-                <input type="text" class="form-control" id="sale-id">
+    <body>
+        <!-- Header -->
+        <header class="bg-light">
+            <div class="text-center py-3">
+                <h1 class="display-4 font-weight-bold text-center d-inline-block">
+                    Buy Together
+                    <i class="fas fa-money-bill"></i>
+                </h1>
+                <p class="lead">
+                    Take the hassel out of buying gifts as a group.
+                </p>
             </div>
-                <button id='retrieve-order' type="button" class="btn btn-primary btn-sm">Submit</button>
-            
-        </form>
-        <label for="payee-name">Select Your Name<br> </label>
-        <select id="payee-name" >
-            <!-- <option id=" option1" value=''>Payer 2</option>
-            <option id=" option1" value=''>Payer 3</option>
-            <option id=" option1" value=''>Payer 4</option> -->
-        </select>
-    </div>
-    <br>
-    <br>
-    <div class="container">
-        <div class="row text-secondary">
-            <div class="mx-auto" style="width: 200px;">
+        </header>
+
+        <!-- Bootstrap grid container -->
+        <div class="container py-4">
+
+            <!-- Back button -->
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    <a href="page1.html" class="btn btn-danger btn-lg">Go Back</a>
+                </div>
             </div>
+
+            <!-- Heading -->
+            <div class="row my-4">
+                <div class="col-md-12">
+                    <h2 class="display-5 font-weight-bold">Step 2 - Make Payments</h2>
+                    <hr class="my-4">
+                </div>
+            </div>
+
+            <!-- Input for order ID lookup -->
+            <div class="row my-4">
+                <div class="col-md-12">
+
+                    <form class="form-inline">
+                        <div class="input-group input-group-lg w-100">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Order ID</span>
+                            </div>
+                            <input type="text" class="form-control" id="sale-id">
+                            <button id='retrieve-order' type="button" class="btn btn-primary btn-lg mx-2 px-4">Submit</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="row my-4">
+                <div class="col-md-12">
+                    <label for="payee-name">Select Your Name<br> </label>
+                    <select id="payee-name">
+                        <!-- <option id=" option1" value=''>Payer 2</option>
+                        <option id=" option1" value=''>Payer 3</option>
+                        <option id=" option1" value=''>Payer 4</option> -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- TODO - need to load product info from DB  -->
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <div class='product-info'>
+                        <span><img id='picture' src="" alt="Picture"></span>
+                        <span id='product-name'>Product Name</span>
+                        <span id='product-price'>Price</span>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- TODO - cleanup and determine what is needed -->
+            <div class="row my-4">
+                <div class="col-md-12">
+
+                    <span id='nextpayee1'>
+                        <!-- <h2>Order ID#:</h2><span id="orderID"></span> -->
+                        <!-- <input type='number' class="form-control" id="price1" placeholder="Amount Paid">
+                            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
+                            <span>Paid</span> -->
+                        <!-- <table class="table">
+                                <thead class="paid-shares">
+                                  <tr>
+                                    <th scope="col">Payee name</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Paid</th>
+                                  </tr>
+                                </thead>
+                                <tbody id='show-table'>
+                                  <!-- <tr> -->
+                        <!-- <th scope="row">Train A</th>
+                                    <td>New-York</td>
+                                    <td>25 </td>
+                                    <td>12:55</td>
+                                    <td>10</td> -->
+                        <!-- </tr> -->
+                        <!-- </tbody>
+                              </table> -->
+
+                    </span>
+
+                    <span id='payee-step2'>
+                        <!-- <span>Amount to Pay: </span><span id='amount-to-pay'></span>
+                                <span>Name of Payee: </span><span id='next-payee'></span>
+                            <input type='number' class="form-control" id="price2" placeholder="Amount Owed">
+                            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
+                            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment 
+                            <button id='next-complete-order' type="submit" class="btn btn-primary btn-sm">Submit</button> -->
+                    </span>
+
+                </div>
+            </div>
+
+            <!-- Current Time -->
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <p id="time">Current Time: <span id="current-time"></span></p>
+                </div>
+            </div>
+
         </div>
-        
-        <span id='nextpayee1'>
-                <!-- <h2>Order ID#:</h2><span id="orderID"></span> -->
-            <!-- <input type='number' class="form-control" id="price1" placeholder="Amount Paid">
-            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
-            <span>Paid</span> -->
-            <!-- <table class="table">
-                <thead class="paid-shares">
-                  <tr>
-                    <th scope="col">Payee name</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Paid</th>
-                  </tr>
-                </thead>
-                <tbody id='show-table'>
-                  <!-- <tr> -->
-                    <!-- <th scope="row">Train A</th>
-                    <td>New-York</td>
-                    <td>25 </td>
-                    <td>12:55</td>
-                    <td>10</td> -->
-                  <!-- </tr> -->
-                <!-- </tbody>
-              </table> --> 
 
-        </span>
-        <br>
-        <br>
-        <span id='payee-step2'>
-                <!-- <span>Amount to Pay: </span><span id='amount-to-pay'></span>
-                <span>Name of Payee: </span><span id='next-payee'></span>
-            <input type='number' class="form-control" id="price2" placeholder="Amount Owed">
-            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
-            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment 
-            <button id='next-complete-order' type="submit" class="btn btn-primary btn-sm">Submit</button> -->
-        </span>
-        <br>
-        <br>
-        <br>
-     
-
-        <div class="container">
-            <p id="time">Current Time: <span id="current-time"></span></p>
-        </div>
-
-        <footer>
-        </footer>
-
-        <br>
-
-
+        <!-- Load scripts -->
         <script src="assets/scripts/page3.js"></script>
 
-</body>
-
+    </body>
 </html>
