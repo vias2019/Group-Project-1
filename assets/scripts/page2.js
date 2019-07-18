@@ -105,7 +105,7 @@ $(document).ready(function () {
             payee3PaidUnpaid = 'paid';
         }
         console.log(payee1PaidUnpaid);
-
+        var timer=moment().add(1,'hours');
         var newObjectRecord = {
             orderId: orderId,
             productPicture: productPicture,
@@ -119,7 +119,9 @@ $(document).ready(function () {
             paid2: payee2PaidUnpaid,
             payee3Name: payee3Name,
             payee3Pay: payee3Pay,
-            paid3: payee3PaidUnpaid
+            paid3: payee3PaidUnpaid,
+            time: timer
+         
         };
         buyTogetherFirebase.push(newObjectRecord);
         //location.reload(true);
