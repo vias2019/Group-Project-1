@@ -54,9 +54,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#page2button').on('click', function() {
-        event.preventDefault();
-        console.log('clicked');
+
 
   $("#page2button").on("click", function (event) {
     event.preventDefault();
@@ -150,7 +148,7 @@ $(document).ready(function() {
 
     setTimeout(function () {
             window.location.href = "page1.html";
-    },30000)
+    },30000);
     
   });
     // Get product info from localstorage and add to screen
@@ -169,9 +167,6 @@ $(document).ready(function() {
         .attr('id', 'product-price')
         .text(`$${itemPrice.toFixed(2)}`);
 
-});
-
 
     $info.empty();
     $info.append($image, $name, $price);
-});

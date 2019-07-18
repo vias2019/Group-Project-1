@@ -14,65 +14,119 @@ $(document).ready(function () {
     var database = firebase.database();
     var buyTogetherFirebase = database.ref();
 
-
-
-    var productName = localStorage.getItem('productName');
-    var productPicture = localStorage.getItem('productPicture');
-    var productPrice = localStorage.getItem('productPrice');
-
-    var orderNumberRetrieved = '';
+    var payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3, orderID;
 
     $('#retrieve-order').on('click', function (e) {
-        //e.preventDefault();
+        e.preventDefault();
+        orderID=$('#sale-id').val();
         console.log('are we here?');
-        var searchOrder = $('#sale-id').val();
-        orderNumberRetrieved = buyTogetherFirebase.orderByValue().on('value', function (snapshot) {
-            //console.log('snapshot: ', snapshot);
-            var payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3;
 
-
-
+        buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).limitToFirst(1).on("value", function (snapshot) {
             snapshot.forEach(function (data) {
-                //console.log('key: ', data.key);
-                //console.log('value: ', data.val());
-
-
-                console.log('orderId: ', data.val().orderId);
-                console.log('searchOrder: ', searchOrder);
-
-                if (searchOrder === data.val().orderId) {
-                    payee1 = data.val().payee1Name;
-                    payee2 = data.val().payee2Name;
-                    payee3 = data.val().payee3Name;
-                    pay1 = data.val().payee1Pay;
-                    pay2 = data.val().payee2Pay;
-                    pay3 = data.val().payee3Pay;
-                    price = data.val().price;
-                    paid1 = data.val().paid1;
-                    paid2 = data.val().paid2;
-                    paid3 = data.val().paid3;
-                }
-
-                console.log('payees: ', payee1, payee2, payee3, productprice, paid1, paid2, paid3);
+            console.log(data.val()) ;  
+            console.log(data.val());
+            console.log(data.child(orderID).val());
+            payee1 = data.val().payee1Name;
+            payee2 = data.val().payee2Name;
+            payee3 = data.val().payee3Name;
+            pay1 = data.val().payee1Pay;
+            pay2 = data.val().payee2Pay;
+            pay3 = data.val().payee3Pay;
+            productprice = data.val().price;
+            paid1 = data.val().paid1;
+            paid2 = data.val().paid2;
+            paid3 = data.val().paid3;
             });
+            
+            //var nameSnapshot = snapshot.child("name");
+           // var name = nameSnapshot.val();
+            $('#payee-name').append(
+                "<option id='option1' value="+pay1+">" + payee1 + "</option>" +
+                "<option id='option1'  value="+pay2+">" + payee2 + "</option>" +
+                "<option id='option1' value="+pay3+">" + payee3 + "</option>"
+            );
+            console.log('payees2: ', orderID, payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3);
         });
-        console.log('payees2: ', payee1, payee2, payee3, productprice, paid1, paid2, paid3);
-        // buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).on("value", function(snapshot) {
-        //     console.log(snapshot.val());
-
-
-        $('#payee-name').append(
-            "<option id='option1' value=''>" + payee1 + "</option>" +
-            "<option id='option1' value=''>" + payee2 + "</option>" +
-            "<option id='option1' value=''>" + payee3 + "</option>"
-        );
+        // bCNE65uFl
 
     });
-    console.log("orderNumberRetrieved:", orderNumberRetrieved);
 
 
+    $('#payee-name').change(function() {
+
+        var selectedPayee= $('#payee-name').text();
+        console.log("selectedPayee:", selectedPayee);
+
+        var selectedPayeePay=$('#payee-name').val();
+        console.log("selectedPayeePay:", selectedPayeePay);
+
+       $('#nextpayee1').empty();
+       $('#payee-step2').empty();
+       $('#nextpayee1').append(
+        "<span><h2>Order ID#:</h2>"+orderID+"</span>"+
+        "<table class='table'>"+
+        "<thead class='paid-shares'>"+
+          "<tr>"+
+            "<th scope='col'>Payee name</th>"+
+            "<th scope='col'>Amount</th>"+
+            "<th scope='col'>Paid/Unpaid</th>"+
+          "</tr>"+
+        "</thead>"+
+        "<tbody id='show-table'>"
+       );
+
+       $('#orderID').val(orderID);
+
+        $('#show-table').append(
+            '<tr>' +
+            '<td>' + payee1 + '</td>' +
+            '<td>' + pay1 + '</td>' +
+            '<td>' + paid1 + '</td>' +
+            '</tr>'
+        
+        );
+        if (payee2 != "") {
+            $('#show-table').append(
+                '<tr>'+
+        '<td>' + payee2 + '</td>' +
+        '<td>' + pay2 + '</td>' +
+        '<td>' + paid2 + '</td>' +
+        '<tr>'
+             );
+             }
+        if (payee3 != "") {
+            $('#show-table').append(
+                '<tr>'+
+        '<td>' + payee3 + '</td>' +
+        '<td>' + pay3 + '</td>' +
+        '<td>' + paid3 + '</td>' +
+        '<tr>'
+             );
+             }
+        $('#payee-step2').append(
+            "<span>Amount to Pay: </span>"+"<span id='amount-to-pay'>"+ selectedPayeePay +"</span>"+"<br>"+
+                "<span>Name of Payee: </span>"+"<span id='next-payee'>"+ selectedPayee +"</span>"+"<br>"+
+                "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
+                 "<br>"+"<br>"+
+                "<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>"
+        );
+       
+    });
+    $('#next-complete-order').on('click', function (e) {
+        e.preventDefault();
+
+        //update firebase
+
+        //check if total paid amount ==price,
+        //if not, message "You paid your share for order# XXX, HH:MM left for all payees to pay"
+        //if order paid in full "Congrats! Order#XXX is complete!"
+        //add message
+        setTimeout(function () {
+            window.location.href = "page1.html";
+    },30000);
 
 
-
+    });
 
 });
+
