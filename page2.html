@@ -39,7 +39,7 @@
     <body>
 
         <!-- Header -->
-        <header class="bg-light">
+        <header class="bg-light border-bottom border-dark">
             <div class="text-center py-3">
                 <h1 class="display-4 font-weight-bold text-center d-inline-block">
                     Buy Together
@@ -69,9 +69,9 @@
                 </div>
             </div>
 
-            <!-- Product Details -->
+            <!-- Product & Order Details -->
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="card shadow">
                         <div class="card-header">
                             <h5>Product Details</h5>
@@ -81,38 +81,35 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Order Details -->
-            <div class="row my-4">
-                <div class="col-md-12">
-                    <div class="card shadow">
-                        <div class="card-header">
-                            <h5>Order Details</h5>
-                        </div>
-                        <div class="card-body">
-                            <label for="number-payees">Select Number of Payees: <br> </label>
-                            <select class="custom-select mb-3" id="number-of-payees">
-                                <option id=" option1" value='None'>None</option>
-                                <option id=" option1" value='1'>1</option>
-                                <option id=" option2" value='2'>2</option>
-                                <option id=" option2" value='3'>3</option>
-                            </select>
-
-                            <div id='payees'>
-                                <!-- Payee input fields loaded here -->
+                <div class="col-md-6">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h5>Order Details</h5>
                             </div>
-
-                            <br>
-
-                            <!-- Button trigger modal -->
-                            <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal"
-                                data-target="#orderModelCenter" id="page2button">
-                                Submit
-                            </button>
+                            <div class="card-body">
+                                <label for="number-payees">Select Number of Payees: <br> </label>
+                                <select class="custom-select mb-3" id="number-of-payees">
+                                    <option id=" option1" value='None'>None</option>
+                                    <option id=" option1" value='1'>1</option>
+                                    <option id=" option2" value='2'>2</option>
+                                    <option id=" option2" value='3'>3</option>
+                                </select>
+    
+                                <div id='payees'>
+                                    <!-- Payee input fields loaded here -->
+                                </div>
+    
+                                <br>
+    
+                                <!-- Button trigger modal -->
+                                <button type="submit" class="btn btn-primary btn-lg" data-toggle="modal"
+                                    data-target="#orderModelCenter" id="page2button">
+                                    Submit
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
 
             <!-- Current Time -->

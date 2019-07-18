@@ -88,7 +88,7 @@ class EtsyAPI {
     // Creates and returns a bootstrap card from the provided listing object
     createListingCard(listing) {
         let $card = $('<div>')
-            .addClass('card shadow my-2')
+            .addClass('card shadow my-2 rounded')
             .css({ width: '18rem', position: 'relative' });
         let $img = $('<img>')
             .attr('src', listing.images[0])
