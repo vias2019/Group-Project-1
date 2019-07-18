@@ -42,18 +42,25 @@ $(document).ready(function() {
         for (var i = 1; i <= numberOfPayees; i++) {
             let $formGroup = $('<div>').addClass('form-group');
 
+            let $inputGroup = $('<div>').addClass('input-group mb-3');
+            let $priceGroup = $('<div>').addClass('input-group-prepend');
+            let $symbolSpan = $('<span>')
+                .addClass('input-group-text dollar')
+                .html('<i class="fas fa-dollar-sign"></i>');
             let $inputPrice = $('<input>')
                 .attr({
                     type: 'text',
                     id: `price${i}`,
                     placeholder: '$0.00'
                 })
-                .addClass('form-control mb-1 price');
+                .addClass('form-control price');
+            $priceGroup.append($symbolSpan);
+            $inputGroup.append($priceGroup, $inputPrice);
 
             let $labelPrice = $('<label>')
                 .attr('for', $inputPrice.attr('id'))
                 .addClass('my-1')
-                .text('Payment Amount');
+                .text('Payment Amount:');
 
             let $inputPayee = $('<input>')
                 .attr({
@@ -66,7 +73,7 @@ $(document).ready(function() {
             let $labelPayee = $('<label>')
                 .attr('for', $inputPayee.attr('id'))
                 .addClass('my-1')
-                .text(`Payee ${i}`);
+                .text(`Payee ${i} Name:`);
 
             let $checkbox = $('<input>').attr({
                 type: 'checkbox',
@@ -80,7 +87,7 @@ $(document).ready(function() {
 
             $formGroup.append(
                 $labelPrice,
-                $inputPrice,
+                $inputGroup,
                 $labelPayee,
                 $inputPayee,
                 $confirmLabel
@@ -110,11 +117,11 @@ $(document).ready(function() {
         let pattern = /^[0-9]+(\.{1}[0-9]{1,2})?$/;
 
         // If NaN or not valid format -> clear and show error
-        if (Number.isNaN(parsed)
-            || parsed <= 0.0 
-            || !pattern.test($input)) {
+        if (Number.isNaN(parsed) || parsed <= 0.0 || !pattern.test($input)) {
             // TODO - use modal for error.
-            alert(`${$input} is not a valid price. Please enter a positive dollar amount.`);
+            alert(
+                `${$input} is not a valid price. Please enter a positive dollar amount.`
+            );
             $(this)
                 .val('')
                 .focus();
