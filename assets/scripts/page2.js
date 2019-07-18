@@ -208,7 +208,7 @@ $(document).ready(function() {
         $(this).val(parsed.toFixed(2));
     });
 
-    $('#payees').on('keypress', '.price', function(event) {
+    $('#payees').on('keypress', '.payment', function(event) {
         // only allow valid keys
         let keyCode = event.keyCode;
         if (keyCode === 46 || (keyCode >= 48 && keyCode <= 57)) {
