@@ -168,5 +168,8 @@ $(document).ready(function() {
         .text(`$${itemPrice.toFixed(2)}`);
 
 
+
     $info.empty();
     $info.append($image, $name, $price);
+
+
