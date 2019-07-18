@@ -1,3 +1,53 @@
+function validatePayments(itemPrice) {
+    // No item price... something is wrong.
+    if (!itemPrice) {
+        // TODO - use modal
+        alert('No item price found! Try again.');
+        return false;
+    }
+
+    // Verify sum of payments matches total product cost
+    let sum = 0.0;
+    $('#payees .payment').each(function() {
+        let $input = $(this)
+            .val()
+            .trim();
+
+        // Verify all payees have a valid payment amount
+        if ($input === '') {
+            // TODO - use modal
+            alert(
+                'All payees must have a payment amount specified in order to create the order.'
+            );
+            $(this).focus();
+            return false;
+        }
+        let paymentValue = parseFloat($input);
+        if (Number.isNaN(paymentValue) || paymentValue === 0.0) {
+            // TODO - use modal
+            alert(`${$input} is not a valid payment amount. Try again.`);
+            $(this).focus();
+            return false;
+        }
+        // We should have a valid payment amount if we reached this point....
+        sum += paymentValue;
+    });
+
+    // Verify sum of payments matches item price
+    if (sum !== itemPrice) {
+        // TODO - use modal
+        alert(
+            `The total sum of payments must equal the product cost. A sum of $${sum.toFixed(
+                2
+            )} was entered, but the item price is $${itemPrice.toFixed(2)}.`
+        );
+        return false;
+    }
+
+    // If we hit no errors, then the entered payment values are valid.
+    return true;
+}
+
 $(document).ready(function() {
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -9,11 +59,32 @@ $(document).ready(function() {
         messagingSenderId: '869661137897',
         appId: '1:869661137897:web:e1006f299e6d65cd'
     };
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
     var buyTogetherFirebase = database.ref();
 
+    // Get product info from localstorage and add to screen
+    var itemName = localStorage.getItem('name');
+    var itemImages = JSON.parse(localStorage.getItem('images'));
+    var itemPrice = parseFloat(localStorage.getItem('price'));
+
+    let $info = $('#product-info');
+    let $image = $('<img>')
+        .attr({ id: 'picture', src: itemImages[0], alt: 'product image' })
+        .text(itemName);
+    let $name = $('<p>')
+        .attr('id', 'product-name')
+        .html(itemName);
+    let $price = $('<p>')
+        .attr('id', 'product-price')
+        .text(`$${itemPrice.toFixed(2)}`);
+
+    $info.empty();
+    $info.append($image, $name, $price);
+
+    // Function to create a random order id string
     function makeid() {
         var result = '';
         var characters =
@@ -51,9 +122,9 @@ $(document).ready(function() {
                 .attr({
                     type: 'text',
                     id: `price${i}`,
-                    placeholder: '$0.00'
+                    placeholder: '0.00'
                 })
-                .addClass('form-control price');
+                .addClass('form-control payment');
             $priceGroup.append($symbolSpan);
             $inputGroup.append($priceGroup, $inputPrice);
 
@@ -68,11 +139,12 @@ $(document).ready(function() {
                     id: `payee${i}-name`,
                     placeholder: 'First Name Last Name'
                 })
-                .addClass('form-control mb-1');
+                .addClass('form-control mb-1')
+                .css('text-transform', 'capitalize');
 
             let $labelPayee = $('<label>')
                 .attr('for', $inputPayee.attr('id'))
-                .addClass('my-1')
+                .addClass('name my-1')
                 .text(`Payee ${i} Name:`);
 
             let $checkbox = $('<input>').attr({
@@ -99,11 +171,16 @@ $(document).ready(function() {
         $('#payees').append($form);
     });
 
-    $('#payees').on('change', '.price', function(event) {
+    $('#payees').on('change', '.payment', function() {
         // Get input value, parse to float value
         let $input = $(this)
             .val()
             .trim();
+
+        if ($input === '') {
+            // If blank, return early
+            return;
+        }
 
         // Remove dollar symbol if necessary
         let symbolIdx = $input.indexOf('$');
@@ -145,7 +222,14 @@ $(document).ready(function() {
 
     $('#page2button').on('click', function(event) {
         event.preventDefault();
-        console.log('clicked');
+
+        // Do not proceed with the order submission if any payment values
+        // are invalid.
+        let validPayments = validatePayments(itemPrice);
+        if (!validPayments) {
+            return false;
+        }
+
         var orderId = makeid();
         //add API reference to the three lines below
         var productPicture = '';
@@ -215,23 +299,4 @@ $(document).ready(function() {
         };
         buyTogetherFirebase.push(newObjectRecord);
     });
-
-    // Get product info from localstorage and add to screen
-    let itemName = localStorage.getItem('name');
-    let itemImages = JSON.parse(localStorage.getItem('images'));
-    let itemPrice = parseFloat(localStorage.getItem('price'));
-
-    let $info = $('#product-info');
-    let $image = $('<img>')
-        .attr({ id: 'picture', src: itemImages[0], alt: 'product image' })
-        .text(itemName);
-    let $name = $('<p>')
-        .attr('id', 'product-name')
-        .html(itemName);
-    let $price = $('<p>')
-        .attr('id', 'product-price')
-        .text(`$${itemPrice.toFixed(2)}`);
-
-    $info.empty();
-    $info.append($image, $name, $price);
 });
