@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,20 +8,14 @@
         <title>Buy Together</title>
 
         <!-- Link to Bootstrap -->
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"
-        />
+            crossorigin="anonymous" />
 
         <!-- Link to the jQuery Library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
-        />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
         <!-- Link to Font Awesome -->
         <script src="https://kit.fontawesome.com/2f14113866.js"></script>
@@ -35,9 +30,7 @@
     <body>
         <header class="bg-light">
             <div class="text-center py-3">
-                <h1
-                    class="display-4 font-weight-bold text-center d-inline-block"
-                >
+                <h1 class="display-4 font-weight-bold text-center d-inline-block">
                     Buy Together
                     <i class="fas fa-money-bill"></i>
                 </h1>
@@ -48,15 +41,12 @@
         </header>
 
         <div class="container py-4">
+            
             <!-- Back & Pay Now buttons -->
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <a href="index.html" class="btn btn-danger btn-lg"
-                        >Go Back</a
-                    >
-                    <a href="./page3.html" class="btn btn-success btn-lg"
-                        >Pay My Share Now</a
-                    >
+                    <a href="index.html" class="btn btn-danger btn-lg">Go Back</a>
+                    <a href="./page3.html" class="btn btn-success btn-lg">Pay My Share Now</a>
                 </div>
             </div>
 
@@ -65,17 +55,8 @@
                 <div class="col-md-12">
                     <form class="form-inline my-4 d-flex">
                         <div class="input-group input-group-lg w-100">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="search-term"
-                                placeholder="Search for an item"
-                            />
-                            <button
-                                type="submit"
-                                id="button-search"
-                                class="btn btn-primary mx-2 px-4"
-                            >
+                            <input type="text" class="form-control" id="search-term" placeholder="Search for an item" />
+                            <button type="submit" id="button-search" class="btn btn-primary mx-2 px-4">
                                 Search
                             </button>
                         </div>
@@ -86,10 +67,7 @@
             <!-- Search Results -->
             <div class="row">
                 <div class="col-md-12">
-                    <div
-                        id="results-container"
-                        class="d-flex flex-wrap justify-content-between"
-                    >
+                    <div id="results-container" class="d-flex flex-wrap justify-content-between">
                         <!-- Dynamic content loaded here -->
                     </div>
                 </div>
@@ -100,4 +78,5 @@
         <script src="assets/scripts/etsy.js"></script>
         <script src="assets/scripts/app.js"></script>
     </body>
+
 </html>
