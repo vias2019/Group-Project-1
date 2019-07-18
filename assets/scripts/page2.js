@@ -110,9 +110,11 @@ $(document).ready(function() {
         let pattern = /^[0-9]+(\.{1}[0-9]{1,2})?$/;
 
         // If NaN or not valid format -> clear and show error
-        if (Number.isNaN(parsed) || !pattern.test($input)) {
-            // todo - error
-            alert(`${$input} is not a valid price.`);
+        if (Number.isNaN(parsed)
+            || parsed <= 0.0 
+            || !pattern.test($input)) {
+            // TODO - use modal for error.
+            alert(`${$input} is not a valid price. Please enter a positive dollar amount.`);
             $(this)
                 .val('')
                 .focus();
