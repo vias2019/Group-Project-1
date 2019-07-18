@@ -2,19 +2,7 @@
     color: rgb(107, 106, 106);
 }
 
-
-.jumbotron {
-    padding: 5px;
-}
-
-body {
-    background-image: url(../images/picture.jpg);
-    background-position: center; 
-}
-footer{
-    position: fixed;
-    bottom:0;
-    color: white;
-    padding: 25px;
-    font-size: 25px;
+.fa-money-bill {
+    margin: 0 20px;
+    color: green;
 }
