@@ -214,11 +214,6 @@ $(document).ready(function() {
             time: expiration
         };
         buyTogetherFirebase.push(newObjectRecord);
-        //location.reload(true);
-        //add notice
-        setTimeout(function() {
-            window.location.href = 'page1.html';
-        }, 1000);
     });
 
     // Get product info from localstorage and add to screen
