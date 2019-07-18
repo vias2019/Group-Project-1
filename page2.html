@@ -77,7 +77,7 @@
         </form> -->
         <!-- <label for=“order-number”>Order Number </label> -->
         <!-- <input type='text' class=“form-control” id=“order-number” value=""> -->
-        <span>Order ID: </span><span id='order-number'></span>
+        <span>Order In Progress </span>      <!--Removing <span id='order-number'></span> from this line -->
         <br>
         <label for="number-payees">Select Number of Payees <br> </label>
         <select id="number-of-payees">
@@ -127,7 +127,7 @@
                     </div>
                     <div class="modal-body">
                         Thank you for your purchase! <br>
-                        Your order number is 
+                        <span>Your Order ID: </span><span id="order-number"></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
