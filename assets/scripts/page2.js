@@ -129,8 +129,7 @@ $(document).ready(function () {
         }, 30000);
     });
 
-});
-// Get product info from localstorage and add to screen
+    // Get product info from localstorage and add to screen
 let itemName = localStorage.getItem('name');
 let itemImages = JSON.parse(localStorage.getItem('images'));
 let itemPrice = parseFloat(localStorage.getItem('price'));
@@ -150,5 +149,4 @@ let $price = $('<p>')
 
 $info.empty();
 $info.append($image, $name, $price);
-
-
+});
