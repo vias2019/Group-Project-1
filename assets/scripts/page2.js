@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: 'AIzaSyAGQQkCjZtQ1ICyrEoGqO5YW4x5NnP4GdU',
@@ -27,38 +27,38 @@ $(document).ready(function() {
         console.log(typeof result);
         return result;
     }
-  
+
     $('#order-number').text(makeid());
     console.log(makeid());
 
-    $('#number-of-payees').change(function() {
+    $('#number-of-payees').change(function () {
         var numberOfPayees = $('#number-of-payees').val();
         console.log(numberOfPayees);
         $('#payees').empty();
         for (var i = 0; i < numberOfPayees; i++) {
             $('#payees').append(
                 "<span id='payee" +
-                    (i + 1) +
-                    "'>" +
-                    "<input type='number' class='form-control' id='price" +
-                    (i + 1) +
-                    "'>" +
-                    "<input type='text' class='form-control' id='payee" +
-                    (i + 1) +
-                    "-name' placeholder='First Last Name'>" +
-                    "<input type='checkbox' name='payment-confirmation' id='checkbox" +
-                    (i + 1) +
-                    "'> Confirm Your Payment</input>" +
-                    '</span>'
+                (i + 1) +
+                "'>" +
+                "<input type='number' class='form-control' id='price" +
+                (i + 1) +
+                "'>" +
+                "<input type='text' class='form-control' id='payee" +
+                (i + 1) +
+                "-name' placeholder='First Name Last Name'>" +
+                "<input type='checkbox' name='payment-confirmation' id='checkbox" +
+                (i + 1) +
+                "'> Confirm Your Payment</input>" +
+                '</span>'
             );
         }
     });
 
 
 
-  $("#page2button").on("click", function (event) {
-    event.preventDefault();
-    console.log('clicked');
+    $("#page2button").on("click", function (event) {
+        event.preventDefault();
+        console.log('clicked');
         var orderId = makeid();
         //add API reference to the three lines below
         var productPicture = '';
@@ -124,52 +124,31 @@ $(document).ready(function() {
         buyTogetherFirebase.push(newObjectRecord);
         //location.reload(true);
         //add notice
-        window.location.href = 'page1.html';
+        setTimeout(function () {
+            window.location.href = "page1.html";
+        }, 30000);
     });
 
-    var newObjectRecord = {
-      orderId: orderId,
-      productPicture: productPicture,
-      productName: productName,
-      price: productPrice,
-      payee1Name: payee1Name,
-      payee1Pay: payee1Pay,
-      paid1: payee1PaidUnpaid,
-      payee2Name: payee2Name,
-      payee2Pay: payee2Pay,
-      paid2: payee2PaidUnpaid,
-      payee3Name: payee3Name,
-      payee3Pay: payee3Pay,
-      paid3: payee3PaidUnpaid
-    };
-    buyTogetherFirebase.push(newObjectRecord);
-   //location.reload(true);
-   //add notice
+});
+// Get product info from localstorage and add to screen
+let itemName = localStorage.getItem('name');
+let itemImages = JSON.parse(localStorage.getItem('images'));
+let itemPrice = parseFloat(localStorage.getItem('price'));
 
-    setTimeout(function () {
-            window.location.href = "page1.html";
-    },30000);
-    
-  });
-    // Get product info from localstorage and add to screen
-    let itemName = localStorage.getItem('name');
-    let itemImages = JSON.parse(localStorage.getItem('images'));
-    let itemPrice = parseFloat(localStorage.getItem('price'));
-
-    let $info = $('#product-info');
-    let $image = $('<img>')
-        .attr({ id: 'picture', src: itemImages[0], alt: 'product image' })
-        .text(itemName);
-    let $name = $('<p>')
-        .attr('id', 'product-name')
-        .text(itemName);
-    let $price = $('<p>')
-        .attr('id', 'product-price')
-        .text(`$${itemPrice.toFixed(2)}`);
+let $info = $('#product-info');
+let $image = $('<img>')
+    .attr({ id: 'picture', src: itemImages[0], alt: 'product image' })
+    .text(itemName);
+let $name = $('<p>')
+    .attr('id', 'product-name')
+    .text(itemName);
+let $price = $('<p>')
+    .attr('id', 'product-price')
+    .text(`$${itemPrice.toFixed(2)}`);
 
 
 
-    $info.empty();
-    $info.append($image, $name, $price);
+$info.empty();
+$info.append($image, $name, $price);
 
 
