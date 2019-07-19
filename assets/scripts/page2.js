@@ -8,7 +8,7 @@ function validatePayments(itemPrice) {
 
     // Verify sum of payments matches total product cost
     let sum = 0.0;
-    let valid = true;
+    let valid = false;
     $('#payees .payment').each(function() {
         let $input = $(this)
             .val()
@@ -32,10 +32,11 @@ function validatePayments(itemPrice) {
             $(this).focus();
             valid = false;
             return false;
+        } else {
+            // We should have a valid payment amount if we reached this point....
+            sum += paymentValue;
+            valid = true;
         }
-        // We should have a valid payment amount if we reached this point....
-        sum += paymentValue;
-        valid = true;
     });
 
     // Verify sum of payments matches item price
@@ -128,7 +129,7 @@ function loadProductInfo() {
     var itemPrice = parseFloat(localStorage.getItem('price'));
 
     if (!itemName || !itemImages || !itemPrice) {
-        console.log("ERROR: Product info missing in local storage.");
+        console.log('ERROR: Product info missing in local storage.');
         return false;
     }
 
@@ -146,7 +147,7 @@ function loadProductInfo() {
     $info.empty();
     $info.append($images, $price, $name);
 
-    console.log("Product info successfully loaded from local storage.")
+    console.log('Product info successfully loaded from local storage.');
     return true;
 }
 
@@ -180,7 +181,7 @@ function initFirebaseDB() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
-    
+
     return database.ref();
 }
 
@@ -323,6 +324,7 @@ $(document).ready(function() {
 
         // Do not proceed with the order submission if any payment values
         // are invalid.
+        var itemPrice = parseFloat(localStorage.getItem('price'));
         let validPayments = validatePayments(itemPrice);
         if (!validPayments) {
             return false;
