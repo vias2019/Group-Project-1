@@ -16,17 +16,26 @@
     height: 30vh;
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
+#contributors {
+    margin-bottom: 0;
     color: white;
-    padding: 25px;
+    padding: 15px;
     font-size: 25px;
 }
-
+dl, ol, ul{
+    margin-bottom: 0;
+}
 h5 {
     color: black;
     letter-spacing: 2px;
     text-shadow: 1px 1px white;
     /* line-height: 1.5; */
 }
+@media screen and (max-width: 650px) {
+#contributors {
+    font-size: 20px;
+}
+p{
+    font-size: 40%;
+}
+}   
