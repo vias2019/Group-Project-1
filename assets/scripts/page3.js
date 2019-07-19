@@ -19,16 +19,18 @@ $(document).ready(function () {
     var pay1=0;
     var pay2=0;
     var pay3=0;
-    var option;
     var objectName;
 
     $('#retrieve-order').on('click', function (e) {
         e.preventDefault();
         orderID=$('#sale-id').val();
         console.log('are we here?');
-
+        $('#payee-name').empty();
         buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).limitToFirst(1).on("value", function (snapshot) {
-            objectName=snapshot.val();
+            objectName=Object.keys(snapshot.val())[0];
+            console.log("objectName:", objectName);
+
+
             console.log(snapshot.val());
             console.log('Key name is: ', Object.keys(snapshot.val())[0]);
             snapshot.forEach(function (data) {
@@ -37,10 +39,10 @@ $(document).ready(function () {
                 payee1 = data.val().payee1Name;
                 payee2 = data.val().payee2Name;
                 payee3 = data.val().payee3Name;
-                pay1 = data.val().payee1Pay;
-                pay2 = data.val().payee2Pay;
-                pay3 = data.val().payee3Pay;
-                productprice = data.val().price;
+                pay1 = parseFloat(data.val().payee1Pay);
+                pay2 = parseFloat(data.val().payee2Pay);
+                pay3 = parseFloat(data.val().payee3Pay);
+                productprice = parseFloat(data.val().price);
                 paid1 = data.val().paid1;
                 paid2 = data.val().paid2;
                 paid3 = data.val().paid3;
@@ -128,57 +130,56 @@ $(document).ready(function () {
     });
 
     console.log('initializing click event');
+
+
+    function checkIfTimeIsUp() {
+        console.log('are we here?');
+        var currentTime = moment().unix();
+        if (currentTime >= time) {
+            //add message "You run out of time, your order will be deleted"
+            //delete record from firebase
+            console.log(objectName);
+            database.ref().child(objectName).remove();
+        } else {
+            if ((pay1 + pay2 + pay3) === productprice) {
+                //add message "The order # is complete. Thank you for shopping with us!"
+            } else {
+                //add message "The order # will be complete when all payees pay"
+                //update firebase
+                if ($('#nextcheckbox').is(':checked')) {
+                    if ($('option:selected').val() == payee1) {
+                        // push paid2=paid 
+                        firebase.database().ref().child(objectName).update
+                            ({
+                                "paid1": "paid1"
+                            });
+                    }
+                    else if ($('option:selected').val() == payee2) {
+                        // push paid3=paid
+                        firebase.database().ref().child(objectName).update
+                            ({
+                                "paid2": "paid2"
+                            });
+                    }
+                    else if ($('option:selected').val() == payee3) {
+                        // push paid3=paid
+                        firebase.database().ref().child(objectName).update
+                            ({
+                                "paid3": "paid3"
+                            });
+                    }
+                    else { return; }
+                }
+            }
+
+        }
+    }
+
     //$('#nextcomplete-order').on('click', function (e){
     $(document).on('click', '#nextcomplete-order', function (e) {
         e.preventDefault();
         console.log('Hi');
-
-        function checkIfTimeIsUp() {
-            buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).on("value", function (snapshot) {
-                console.log(snapshot.key);
-                var currentTime = moment().unix();
-                console.log(snapshot);
-                if (currentTime >= time) {
-                    //add message "You run out of time, your order will be deleted"
-                    //delete record from firebase
-                    snapshot.key.remove();
-                } else {
-                    if ((pay1 + pay2 + pay3) == price) {
-                        //add message "The order # is complete. Thank you for shopping with us!"
-                    } else {
-                        //add message "The order # will be complete when all payees pay"
-                         //update firebase
-                         if ($('#nextcheckbox').is(':checked')) {
-                            if($('option:selected').val()==payee1){
-                            // push paid2=paid 
-                            firebase.database().ref().child(objectName).update 
-                            ({
-                                "paid1": "paid1"
-                              });
-                         }
-                        else if($('option:selected').val()==payee2){
-                            // push paid3=paid
-                            firebase.database().ref().child(objectName).update 
-                            ({
-                                "paid2": "paid2"
-                              });
-                         }
-                         else if($('option:selected').val()==payee3){
-                            // push paid3=paid
-                            firebase.database().ref().child(objectName).update 
-                            ({
-                                "paid3": "paid3"
-                              });
-                         }
-                         else{return;}
-                        }
-                    }
-
-                }
-
-
-            });
-        }
+       
         checkIfTimeIsUp();
 
        
@@ -191,4 +192,5 @@ $(document).ready(function () {
     });
 
 });
-
+//eE54acSOh
+//Lk7I8p2VVWfiSonNSKK
