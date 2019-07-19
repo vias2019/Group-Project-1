@@ -216,9 +216,9 @@ $(document).ready(function() {
         window.location = 'page1.html';
     }
 
-    let newOrderId = makeid();
-    $('#order-number').text(newOrderId);
-    console.log('New order ID:', newOrderId);
+    window.orderId = makeid();
+    $('#order-number').text(orderId);
+    console.log('New order ID:', orderId);
 
     $('#number-of-payees').change(function() {
         var numberOfPayees = $('#number-of-payees').val();
@@ -354,7 +354,6 @@ $(document).ready(function() {
             return false;
         }
 
-        var orderId = makeid();
         //add API reference to the three lines below
         var productPicture = '';
         var productName = '';
@@ -406,7 +405,7 @@ $(document).ready(function() {
             .unix();
 
         var newObjectRecord = {
-            orderId: orderId,
+            orderId: window.orderId,
             productPicture: productPicture,
             productName: productName,
             price: productPrice,
