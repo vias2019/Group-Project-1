@@ -1,3 +1,5 @@
+var selectedPayee = '';
+
 $(document).ready(function () {
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -66,11 +68,11 @@ $(document).ready(function () {
         // cobT9wtLp
 
     });
-
+    
 
     $('#payee-name').change(function() {
         
-        var selectedPayee= $('#payee-name option:selected').text();
+        selectedPayee= $('#payee-name option:selected').text();
         console.log("selectedPayee:", selectedPayee);
 
         var selectedPayeePay=$('#payee-name').val();
@@ -147,25 +149,25 @@ $(document).ready(function () {
                 //add message "The order # will be complete when all payees pay"
                 //update firebase
                 if ($('#nextcheckbox').is(':checked')) {
-                    if ($('option:selected').val() == payee1) {
+                    if (selectedPayee == payee1) {
                         // push paid2=paid 
-                        firebase.database().ref().child(objectName).update
+                        buyTogetherFirebase.child(objectName).update
                             ({
-                                "paid1": "paid1"
+                                "paid1": "paid"
                             });
                     }
-                    else if ($('option:selected').val() == payee2) {
+                    else if (selectedPayee == payee2) {
                         // push paid3=paid
-                        firebase.database().ref().child(objectName).update
+                        buyTogetherFirebase.child(objectName).update
                             ({
-                                "paid2": "paid2"
+                                "paid2": "paid"
                             });
                     }
-                    else if ($('option:selected').val() == payee3) {
+                    else if (selectedPayee == payee3) {
                         // push paid3=paid
-                        firebase.database().ref().child(objectName).update
+                        buyTogetherFirebase.child(objectName).update
                             ({
-                                "paid3": "paid3"
+                                "paid3": "paid"
                             });
                     }
                     else { return; }
@@ -192,5 +194,5 @@ $(document).ready(function () {
     });
 
 });
-//eE54acSOh
-//Lk7I8p2VVWfiSonNSKK
+//ZE4DFTUZX
+//Lk7IeirGSCJIfaRd328
