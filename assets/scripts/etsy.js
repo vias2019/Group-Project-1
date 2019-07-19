@@ -56,7 +56,7 @@ class EtsyAPI {
                 ).then(data => {
                     if (data.ok) {
                         let images = data.results.map(
-                            result => result.url_170x135
+                            result => result.url_570xN
                         );
 
                         listing.images = [...images];
@@ -89,7 +89,7 @@ class EtsyAPI {
     createListingCard(listing) {
         let $card = $('<div>')
             .addClass('card shadow my-2 rounded')
-            .css({ width: '18rem', position: 'relative' });
+            .css({'width':'18rem'});
         let $img = $('<img>')
             .attr('src', listing.images[0])
             .addClass('card-img-top');
