@@ -1,5 +1,5 @@
 var selectedPayee = '';
-var selectedPayeePay='';
+var selectedPayeePay = '';
 $(document).ready(function () {
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -17,15 +17,15 @@ $(document).ready(function () {
     var buyTogetherFirebase = database.ref();
 
 
-    var payee1, payee2, payee3,productprice, paid1, paid2, paid3, orderID, time;
-    var pay1=0;
-    var pay2=0;
-    var pay3=0;
+    var payee1, payee2, payee3, productprice, paid1, paid2, paid3, orderID, time, productName;
+    var pay1 = 0;
+    var pay2 = 0;
+    var pay3 = 0;
     var objectName;
 
     $('#retrieve-order').on('click', function (e) {
         e.preventDefault();
-        orderID=$('#sale-id').val();
+        orderID = $('#sale-id').val();
         console.log('are we here?');
         $('#payee-name').empty();
         buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).limitToFirst(1).on("value", function (snapshot) {
@@ -50,56 +50,61 @@ $(document).ready(function () {
                     paid2 = data.val().paid2;
                     paid3 = data.val().paid3;
                     time = data.val().time;
-                    });
-                } else {
-                    //add message here
-                    alert("Invalid Order ID #");
+                    productName=data.val().productName;
+
+                });
+            } else {
+                //add message here
+                alert("Invalid Order ID #");
             }
-        
-            
+
+            $('#product-info').append(
+                "<snap>" + "<b>Product Name: </b>" + productName + " " + "<b>Price: </b>" + productprice + "</snap>"
+            );
+
             //var nameSnapshot = snapshot.child("name");
-           // var name = nameSnapshot.val();
+            // var name = nameSnapshot.val();
             $('#payee-name').append(
                 "<option id='option0' value=''> None</option>" +
-                "<option id='option1' value="+pay1+">" + payee1 + "</option>" +
-                "<option id='option2' value="+pay2+">" + payee2 + "</option>" +
-                "<option id='option3' value="+pay3+">" + payee3 + "</option>"
-               // text="+ payee1 +"
+                "<option id='option1' value=" + pay1 + ">" + payee1 + "</option>" +
+                "<option id='option2' value=" + pay2 + ">" + payee2 + "</option>" +
+                "<option id='option3' value=" + pay3 + ">" + payee3 + "</option>"
+                // text="+ payee1 +"
 
             );
-            console.log('payees2: ', orderID, payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3, time);
+            console.log('payees2: ', orderID, payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3, time, productName);
             var option = $('option:selected').val();
             console.log(option);
         });
         // cobT9wtLp
 
     });
-    
 
-    $('#payee-name').change(function() {
-        
-        selectedPayee= $('#payee-name option:selected').text();
+
+    $('#payee-name').change(function () {
+
+        selectedPayee = $('#payee-name option:selected').text();
         console.log("selectedPayee:", selectedPayee);
 
-        selectedPayeePay=$('#payee-name').val();
+        selectedPayeePay = $('#payee-name').val();
         console.log("selectedPayeePay:", selectedPayeePay);
 
-       $('#nextpayee1').empty();
-       $('#payee-step2').empty();
-       $('#nextpayee1').append(
-        "<span><h2>Order ID#:</h2>"+orderID+"</span>"+
-        "<table class='table'>"+
-        "<thead class='paid-shares'>"+
-          "<tr>"+
-            "<th scope='col'>Payee name</th>"+
-            "<th scope='col'>Amount</th>"+
-            "<th scope='col'>Paid/Unpaid</th>"+
-          "</tr>"+
-        "</thead>"+
-        "<tbody id='show-table'>"
-       );
+        $('#nextpayee1').empty();
+        $('#payee-step2').empty();
+        $('#nextpayee1').append(
+            "<span><h2>Order ID#:</h2>" + orderID + "</span>" +
+            "<table class='table'>" +
+            "<thead class='paid-shares'>" +
+            "<tr>" +
+            "<th scope='col'>Payee name</th>" +
+            "<th scope='col'>Amount</th>" +
+            "<th scope='col'>Paid/Unpaid</th>" +
+            "</tr>" +
+            "</thead>" +
+            "<tbody id='show-table'>"
+        );
 
-       $('#orderID').val(orderID);
+        $('#orderID').val(orderID);
 
         $('#show-table').append(
             '<tr>' +
@@ -107,39 +112,39 @@ $(document).ready(function () {
             '<td>' + pay1 + '</td>' +
             '<td>' + paid1 + '</td>' +
             '</tr>'
-        
+
         );
         if (payee2 != "") {
             $('#show-table').append(
-                '<tr>'+
-        '<td>' + payee2 + '</td>' +
-        '<td>' + pay2 + '</td>' +
-        '<td>' + paid2 + '</td>' +
-        '<tr>'
-             );
-             }
+                '<tr>' +
+                '<td>' + payee2 + '</td>' +
+                '<td>' + pay2 + '</td>' +
+                '<td>' + paid2 + '</td>' +
+                '<tr>'
+            );
+        }
         if (payee3 != "") {
             $('#show-table').append(
-                '<tr>'+
-        '<td>' + payee3 + '</td>' +
-        '<td>' + pay3 + '</td>' +
-        '<td>' + paid3 + '</td>' +
-        '<tr>'
-             );
-             }
+                '<tr>' +
+                '<td>' + payee3 + '</td>' +
+                '<td>' + pay3 + '</td>' +
+                '<td>' + paid3 + '</td>' +
+                '<tr>'
+            );
+        }
         $('#payee-step2').append(
             //"<span>Amount to Pay: </span>"+"<span id='amount-to-pay'>"+ selectedPayeePay +"</span>"+"<br>"+
-               // "<span>Name of Payee: </span>"+"<span id='next-payee'>"+ selectedPayee +"</span>"+"<br>"+
-               // "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
-               //  "<br>"+"<br>"+
-               // "<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>"
+            // "<span>Name of Payee: </span>"+"<span id='next-payee'>"+ selectedPayee +"</span>"+"<br>"+
+            // "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
+            //  "<br>"+"<br>"+
+            // "<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>"
         );
-       ifPaid();
+        ifPaid();
     });
-    function append (){
-        $('#payee-step2').append("<span>Amount to Pay: </span>"+"<span id='amount-to-pay'>"+ selectedPayeePay +"</span>"+"<br>"+
-        "<span>Name of Payee: </span>"+"<span id='next-payee'>"+ selectedPayee +"</span>"+"<br>"+ "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
-        "<br>"+"<br>"+"<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>");
+    function append() {
+        $('#payee-step2').append("<span>Amount to Pay: </span>" + "<span id='amount-to-pay'>" + selectedPayeePay + "</span>" + "<br>" +
+            "<span>Name of Payee: </span>" + "<span id='next-payee'>" + selectedPayee + "</span>" + "<br>" + "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
+            "<br>" + "<br>" + "<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>");
     }
 
     function ifPaid() {
@@ -153,7 +158,7 @@ $(document).ready(function () {
     }
     console.log('initializing click event');
 
-    function paidStatus (){
+    function paidStatus() {
         if ($('#nextcheckbox').is(':checked')) {
             if (selectedPayee == payee1) {
                 // push paid1=paid 
@@ -212,14 +217,14 @@ $(document).ready(function () {
     $(document).on('click', '#nextcomplete-order', function (e) {
         e.preventDefault();
         console.log('Hi');
-       
+
         checkIfTimeIsUp();
 
-       
-        
+
+
         setTimeout(function () {
             window.location.href = "page1.html";
-        },2000);
+        }, 2000);
 
 
     });
