@@ -1,4 +1,27 @@
-document.addEventListener("DOMContentLoaded", evt => {
+var DB;
+
+function initFirebaseDB() {
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: 'AIzaSyAGQQkCjZtQ1ICyrEoGqO5YW4x5NnP4GdU',
+        authDomain: 'buytogether-ba185.firebaseapp.com',
+        databaseURL: 'https://buytogether-ba185.firebaseio.com',
+        projectId: 'buytogether-ba185',
+        storageBucket: '',
+        messagingSenderId: '869661137897',
+        appId: '1:869661137897:web:e1006f299e6d65cd'
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    DB = firebase.database();
+}
+
+// When DOM content is loaded
+document.addEventListener('DOMContentLoaded', evt => {
+    // Set up gobal reference to Firebase DB
+    initFirebaseDB();
 
     // Create interval to update displayed current time
     setInterval(function() {
