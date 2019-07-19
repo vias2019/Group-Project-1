@@ -23,6 +23,10 @@ footer {
     padding: 20px;
 }
 
+p.lead {
+    font-size: 20px;
+}
+
 a:hover {
     text-decoration: none;
 }
