@@ -8,7 +8,7 @@ function validatePayments(itemPrice) {
 
     // Verify sum of payments matches total product cost
     let sum = 0.0;
-    let valid = true;
+    let valid = false;
     $('#payees .payment').each(function() {
         let $input = $(this)
             .val()
@@ -24,7 +24,7 @@ function validatePayments(itemPrice) {
             valid = false;
             return false;
         }
-        
+
         let paymentValue = parseFloat($input);
         if (Number.isNaN(paymentValue) || paymentValue === 0.0) {
             // TODO - use modal
@@ -32,10 +32,11 @@ function validatePayments(itemPrice) {
             $(this).focus();
             valid = false;
             return false;
+        } else {
+            // We should have a valid payment amount if we reached this point....
+            sum += paymentValue;
+            valid = true;
         }
-        // We should have a valid payment amount if we reached this point....
-        sum += paymentValue;
-        valid = true;
     });
 
     // Verify sum of payments matches item price
@@ -53,7 +54,138 @@ function validatePayments(itemPrice) {
     return valid;
 }
 
-$(document).ready(function() {
+// Verify all payee names are specified
+function validatePayeeNames() {
+    let valid = true;
+
+    let payees = $('#payees .payee');
+    payees.each(function() {
+        let name = $(this).val().trim();
+        if (name === '') {
+            // TODO - show error modal
+            valid = false;
+            alert('Payee name is missing!');
+            $(this).focus();
+            return false;
+        }
+    });
+
+    return valid;
+}
+
+function createImageCarousel(images) {
+    // If only 1 image, then return in an img element
+    if (images.length === 1) {
+        return $('<img>').attr({
+            id: 'picture',
+            src: itemImages[0],
+            alt: 'product image'
+        });
+    }
+
+    // Create bootstrap carousel
+    let $carouselDiv = $('<div>')
+        .addClass('carousel slide')
+        .attr({ 'id': 'productCarousel', 'data-ride': 'carousel' });
+    let $inner = $('<div>').addClass('carousel-inner');
+
+    images.forEach((image, index) => {
+        let $newItem = $('<div>')
+            .addClass('carousel-item')
+            .attr('data-interval', '4000');
+        if (index === 0) {
+            $newItem.addClass('active');
+        }
+
+        $newItem.append(
+            $('<img>')
+                .addClass('d-block w-100 card-img-top')
+                .attr({ src: image, alt: `Product image ${index + 1}` })
+        );
+        $inner.append($newItem);
+    });
+
+    let $prev = $('<a>')
+        .addClass('carousel-control-prev')
+        .attr({
+            'href': '#productCarousel',
+            'role': 'button',
+            'data-slide': 'prev'
+        });
+    $prev.append(
+        $('<span>')
+            .addClass('carousel-control-prev-icon')
+            .attr('aria-hidden', 'true'),
+        $('<span>')
+            .addClass('sr-only')
+            .text('Previous')
+    );
+    let $next = $('<a>')
+        .addClass('carousel-control-next')
+        .attr({
+            'href': '#productCarousel',
+            'role': 'button',
+            'data-slide': 'next'
+        });
+    $next.append(
+        $('<span>')
+            .addClass('carousel-control-next-icon')
+            .attr('aria-hidden', 'true'),
+        $('<span>')
+            .addClass('sr-only')
+            .text('Next')
+    );
+
+    $carouselDiv.append($inner, $prev, $next);
+
+    return $carouselDiv;
+}
+
+function loadProductInfo() {
+    // Get product info from localstorage and add to screen
+    var itemName = localStorage.getItem('name');
+    var itemImages = JSON.parse(localStorage.getItem('images'));
+    var itemPrice = parseFloat(localStorage.getItem('price'));
+
+    if (!itemName || !itemImages || !itemPrice) {
+        console.log('ERROR: Product info missing in local storage.');
+        return false;
+    }
+
+    let $info = $('#product-info');
+    let $images = createImageCarousel(itemImages);
+    let $name = $('<p>')
+        .addClass('card-text')
+        .attr('id', 'product-name')
+        .html(itemName);
+    let $price = $('<h5>')
+        .addClass('card-title my-3')
+        .attr('id', 'product-price')
+        .text(`$${itemPrice.toFixed(2)}`);
+
+    $info.empty();
+    $info.append($images, $price, $name);
+
+    console.log('Product info successfully loaded from local storage.');
+    return true;
+}
+
+// Function to create a random order id string
+function makeid() {
+    var result = '';
+    var characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < 9; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+        );
+    }
+    return result;
+}
+
+// Sets up and returns a reference to our Firebase DB
+function initFirebaseDB() {
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: 'AIzaSyAGQQkCjZtQ1ICyrEoGqO5YW4x5NnP4GdU',
@@ -68,48 +200,29 @@ $(document).ready(function() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
-    var buyTogetherFirebase = database.ref();
 
-    // Get product info from localstorage and add to screen
-    var itemName = localStorage.getItem('name');
-    var itemImages = JSON.parse(localStorage.getItem('images'));
-    var itemPrice = parseFloat(localStorage.getItem('price'));
+    return database.ref();
+}
 
-    let $info = $('#product-info');
-    let $image = $('<img>')
-        .attr({ id: 'picture', src: itemImages[0], alt: 'product image' })
-        .text(itemName);
-    let $name = $('<p>')
-        .attr('id', 'product-name')
-        .html(itemName);
-    let $price = $('<p>')
-        .attr('id', 'product-price')
-        .text(`$${itemPrice.toFixed(2)}`);
+$(document).ready(function() {
+    // Set up DB connection
+    var buyTogetherFirebase = initFirebaseDB();
 
-    $info.empty();
-    $info.append($image, $name, $price);
-
-    // Function to create a random order id string
-    function makeid() {
-        var result = '';
-        var characters =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < 9; i++) {
-            result += characters.charAt(
-                Math.floor(Math.random() * charactersLength)
-            );
-        }
-        console.log(typeof result);
-        return result;
+    // Load product info
+    let loaded = loadProductInfo();
+    if (!loaded) {
+        // No product info found in local storage
+        // Revert back to search page.
+        window.location = 'page1.html';
     }
 
-    $('#order-number').text(makeid());
-    console.log(makeid());
+    let newOrderId = makeid();
+    $('#order-number').text(newOrderId);
+    console.log('New order ID:', newOrderId);
 
     $('#number-of-payees').change(function() {
         var numberOfPayees = $('#number-of-payees').val();
-        console.log(numberOfPayees);
+        console.log('Selected number of payees:', numberOfPayees);
 
         $('#payees').empty();
 
@@ -144,7 +257,7 @@ $(document).ready(function() {
                     id: `payee${i}-name`,
                     placeholder: 'First Name Last Name'
                 })
-                .addClass('form-control mb-1')
+                .addClass('form-control mb-1 payee')
                 .css('text-transform', 'capitalize');
 
             let $labelPayee = $('<label>')
@@ -230,8 +343,14 @@ $(document).ready(function() {
 
         // Do not proceed with the order submission if any payment values
         // are invalid.
+        var itemPrice = parseFloat(localStorage.getItem('price'));
         let validPayments = validatePayments(itemPrice);
         if (!validPayments) {
+            return false;
+        }
+        // Verify all payee names are specified
+        let validNames = validatePayeeNames();
+        if (!validNames) {
             return false;
         }
 
@@ -305,5 +424,5 @@ $(document).ready(function() {
         buyTogetherFirebase.push(newObjectRecord);
     });
 
-    $("#new-order-close").on('click', () => window.location = "page1.html");
+    $('#new-order-close').on('click', () => (window.location = 'page1.html'));
 });

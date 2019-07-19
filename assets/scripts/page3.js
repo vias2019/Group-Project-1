@@ -14,12 +14,14 @@ $(document).ready(function () {
     var database = firebase.database();
     var buyTogetherFirebase = database.ref();
 
+
     var payee1, payee2, payee3,productprice, paid1, paid2, paid3, orderID, time;
     var pay1=0;
     var pay2=0;
     var pay3=0;
     var option;
     var objectName;
+
     $('#retrieve-order').on('click', function (e) {
         e.preventDefault();
         orderID=$('#sale-id').val();
