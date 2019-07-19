@@ -54,6 +54,25 @@ function validatePayments(itemPrice) {
     return valid;
 }
 
+// Verify all payee names are specified
+function validatePayeeNames() {
+    let valid = true;
+
+    let payees = $('#payees .payee');
+    payees.each(function() {
+        let name = $(this).val().trim();
+        if (name === '') {
+            // TODO - show error modal
+            valid = false;
+            alert('Payee name is missing!');
+            $(this).focus();
+            return false;
+        }
+    });
+
+    return valid;
+}
+
 function createImageCarousel(images) {
     // If only 1 image, then return in an img element
     if (images.length === 1) {
@@ -238,7 +257,7 @@ $(document).ready(function() {
                     id: `payee${i}-name`,
                     placeholder: 'First Name Last Name'
                 })
-                .addClass('form-control mb-1')
+                .addClass('form-control mb-1 payee')
                 .css('text-transform', 'capitalize');
 
             let $labelPayee = $('<label>')
@@ -327,6 +346,11 @@ $(document).ready(function() {
         var itemPrice = parseFloat(localStorage.getItem('price'));
         let validPayments = validatePayments(itemPrice);
         if (!validPayments) {
+            return false;
+        }
+        // Verify all payee names are specified
+        let validNames = validatePayeeNames();
+        if (!validNames) {
             return false;
         }
 
