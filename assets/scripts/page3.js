@@ -1,5 +1,5 @@
 var selectedPayee = '';
-
+var selectedPayeePay='';
 $(document).ready(function () {
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -29,27 +29,33 @@ $(document).ready(function () {
         console.log('are we here?');
         $('#payee-name').empty();
         buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).limitToFirst(1).on("value", function (snapshot) {
-            objectName=Object.keys(snapshot.val())[0];
-            console.log("objectName:", objectName);
+            if (snapshot.exists()) {
+                objectName = Object.keys(snapshot.val())[0];
+                console.log("objectName:", objectName);
 
 
-            console.log(snapshot.val());
-            console.log('Key name is: ', Object.keys(snapshot.val())[0]);
-            snapshot.forEach(function (data) {
-                console.log(data.val());  
-                console.log(data.child(orderID).val());
-                payee1 = data.val().payee1Name;
-                payee2 = data.val().payee2Name;
-                payee3 = data.val().payee3Name;
-                pay1 = parseFloat(data.val().payee1Pay) || 0;
-                pay2 = parseFloat(data.val().payee2Pay) || 0;
-                pay3 = parseFloat(data.val().payee3Pay) || 0;
-                productprice = parseFloat(data.val().price) || 0;
-                paid1 = data.val().paid1;
-                paid2 = data.val().paid2;
-                paid3 = data.val().paid3;
-                time=data.val().time;
-            });
+                console.log(snapshot.val());
+                console.log('Key name is: ', Object.keys(snapshot.val())[0]);
+                snapshot.forEach(function (data) {
+                    console.log(data.val());
+                    console.log(data.child(orderID).val());
+                    payee1 = data.val().payee1Name;
+                    payee2 = data.val().payee2Name;
+                    payee3 = data.val().payee3Name;
+                    pay1 = parseFloat(data.val().payee1Pay) || 0;
+                    pay2 = parseFloat(data.val().payee2Pay) || 0;
+                    pay3 = parseFloat(data.val().payee3Pay) || 0;
+                    productprice = parseFloat(data.val().price) || 0;
+                    paid1 = data.val().paid1;
+                    paid2 = data.val().paid2;
+                    paid3 = data.val().paid3;
+                    time = data.val().time;
+                    });
+                } else {
+                    //add message here
+                    alert("Invalid Order ID #");
+            }
+        
             
             //var nameSnapshot = snapshot.child("name");
            // var name = nameSnapshot.val();
@@ -75,7 +81,7 @@ $(document).ready(function () {
         selectedPayee= $('#payee-name option:selected').text();
         console.log("selectedPayee:", selectedPayee);
 
-        var selectedPayeePay=$('#payee-name').val();
+        selectedPayeePay=$('#payee-name').val();
         console.log("selectedPayeePay:", selectedPayeePay);
 
        $('#nextpayee1').empty();
@@ -122,15 +128,29 @@ $(document).ready(function () {
              );
              }
         $('#payee-step2').append(
-            "<span>Amount to Pay: </span>"+"<span id='amount-to-pay'>"+ selectedPayeePay +"</span>"+"<br>"+
-                "<span>Name of Payee: </span>"+"<span id='next-payee'>"+ selectedPayee +"</span>"+"<br>"+
-                "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
-                 "<br>"+"<br>"+
-                "<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>"
+            //"<span>Amount to Pay: </span>"+"<span id='amount-to-pay'>"+ selectedPayeePay +"</span>"+"<br>"+
+               // "<span>Name of Payee: </span>"+"<span id='next-payee'>"+ selectedPayee +"</span>"+"<br>"+
+               // "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
+               //  "<br>"+"<br>"+
+               // "<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>"
         );
-       
+       ifPaid();
     });
+    function append (){
+        $('#payee-step2').append("<span>Amount to Pay: </span>"+"<span id='amount-to-pay'>"+ selectedPayeePay +"</span>"+"<br>"+
+        "<span>Name of Payee: </span>"+"<span id='next-payee'>"+ selectedPayee +"</span>"+"<br>"+ "<input type='checkbox' name='payment-confirmation' id='nextcheckbox'> Confirm Your Payment</input>" +
+        "<br>"+"<br>"+"<button id='nextcomplete-order' type='submit' class='btn btn-primary btn-sm'>Submit</button>");
+    }
 
+    function ifPaid() {
+        if (selectedPayee == payee1 && paid1 == "") {
+            append();
+        } else if (selectedPayee == payee2 && paid2 == "") {
+            append();
+        } else if (selectedPayee == payee3 && paid3 == "") {
+            append();
+        }
+    }
     console.log('initializing click event');
 
     function paidStatus (){
@@ -170,10 +190,16 @@ $(document).ready(function () {
             console.log(objectName);
             database.ref().child(objectName).remove();
         } else {
-            if ((pay1 + pay2 + pay3) === productprice) {
+            paidStatus();
+            if ((pay1 + pay2 + pay3) === productprice && paid1 == 'paid' && paid2 == 'paid' && paid3 == 'paid') {
                 //add message "The order # is complete. Thank you for shopping with us!"
-                paidStatus();
-            } else {
+
+            } else if ((pay1 + pay2) === productprice && paid1 == 'paid' && paid2 == 'paid') {
+                //add message "The order # is complete. Thank you for shopping with us!"
+            } else if (pay1 === productprice && paid1 == 'paid') {
+                //add message "The order # is complete. Thank you for shopping with us!"
+            }
+            else {
                 //add message "The order # will be complete when all payees pay"
                 //update firebase
                 paidStatus();
@@ -206,5 +232,7 @@ $(document).ready(function () {
 //Lk7MsW4AW8a7GGhVHEY    deleted
 //92E7Fqe0C             updated
 //Lk7MCqjKMjH_mgNpeuO   updated
+//VilWbyfxo
+//Lk8JUDTlwUcD_bw2uHQ
 
 //console.log(moment().add(1, 'hours').unix());
