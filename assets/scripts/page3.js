@@ -41,10 +41,10 @@ $(document).ready(function () {
                 payee1 = data.val().payee1Name;
                 payee2 = data.val().payee2Name;
                 payee3 = data.val().payee3Name;
-                pay1 = parseFloat(data.val().payee1Pay);
-                pay2 = parseFloat(data.val().payee2Pay);
-                pay3 = parseFloat(data.val().payee3Pay);
-                productprice = parseFloat(data.val().price);
+                pay1 = parseFloat(data.val().payee1Pay) || 0;
+                pay2 = parseFloat(data.val().payee2Pay) || 0;
+                pay3 = parseFloat(data.val().payee3Pay) || 0;
+                productprice = parseFloat(data.val().price) || 0;
                 paid1 = data.val().paid1;
                 paid2 = data.val().paid2;
                 paid3 = data.val().paid3;
@@ -133,6 +133,33 @@ $(document).ready(function () {
 
     console.log('initializing click event');
 
+    function paidStatus (){
+        if ($('#nextcheckbox').is(':checked')) {
+            if (selectedPayee == payee1) {
+                // push paid1=paid 
+                buyTogetherFirebase.child(objectName).update
+                    ({
+                        "paid1": "paid"
+                    });
+            }
+            else if (selectedPayee == payee2) {
+                // push paid2=paid
+                buyTogetherFirebase.child(objectName).update
+                    ({
+                        "paid2": "paid"
+                    });
+            }
+            else if (selectedPayee == payee3) {
+                // push paid3=paid
+                buyTogetherFirebase.child(objectName).update
+                    ({
+                        "paid3": "paid"
+                    });
+            }
+            else { return; }
+        }
+
+    }
 
     function checkIfTimeIsUp() {
         console.log('are we here?');
@@ -145,33 +172,11 @@ $(document).ready(function () {
         } else {
             if ((pay1 + pay2 + pay3) === productprice) {
                 //add message "The order # is complete. Thank you for shopping with us!"
+                paidStatus();
             } else {
                 //add message "The order # will be complete when all payees pay"
                 //update firebase
-                if ($('#nextcheckbox').is(':checked')) {
-                    if (selectedPayee == payee1) {
-                        // push paid2=paid 
-                        buyTogetherFirebase.child(objectName).update
-                            ({
-                                "paid1": "paid"
-                            });
-                    }
-                    else if (selectedPayee == payee2) {
-                        // push paid3=paid
-                        buyTogetherFirebase.child(objectName).update
-                            ({
-                                "paid2": "paid"
-                            });
-                    }
-                    else if (selectedPayee == payee3) {
-                        // push paid3=paid
-                        buyTogetherFirebase.child(objectName).update
-                            ({
-                                "paid3": "paid"
-                            });
-                    }
-                    else { return; }
-                }
+                paidStatus();
             }
 
         }
@@ -186,13 +191,20 @@ $(document).ready(function () {
 
        
         
-        // setTimeout(function () {
-        //     window.location.href = "page1.html";
-        // },2000);
+        setTimeout(function () {
+            window.location.href = "page1.html";
+        },2000);
 
 
     });
 
 });
+//test:
 //ZE4DFTUZX
 //Lk7IeirGSCJIfaRd328
+//rEcOP4TRE              deleted 
+//Lk7MsW4AW8a7GGhVHEY    deleted
+//92E7Fqe0C             updated
+//Lk7MCqjKMjH_mgNpeuO   updated
+
+//console.log(moment().add(1, 'hours').unix());
