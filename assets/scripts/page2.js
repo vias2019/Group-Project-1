@@ -143,9 +143,9 @@ function createImageCarousel(images) {
 
 function loadProductInfo() {
     // Get product info from localstorage and add to screen
-    var itemName = localStorage.getItem('name');
-    var itemImages = JSON.parse(localStorage.getItem('images'));
-    var itemPrice = parseFloat(localStorage.getItem('price'));
+    window.itemName = localStorage.getItem('name');
+    window.itemImages = JSON.parse(localStorage.getItem('images'));
+    window.itemPrice = parseFloat(localStorage.getItem('price'));
 
     if (!itemName || !itemImages || !itemPrice) {
         console.log('ERROR: Product info missing in local storage.');
@@ -356,9 +356,6 @@ $(document).ready(function() {
 
         var orderId = makeid();
         //add API reference to the three lines below
-        var productPicture = '';
-        var productName = '';
-        var productPrice = '';
         var payee1Name = '';
         var payee2Name = '';
         var payee3Name = '';
@@ -407,9 +404,9 @@ $(document).ready(function() {
 
         var newObjectRecord = {
             orderId: orderId,
-            productPicture: productPicture,
-            productName: productName,
-            price: productPrice,
+            productPicture: itemImages,
+            productName: itemName,
+            price: itemPrice,
             payee1Name: payee1Name,
             payee1Pay: payee1Pay,
             paid1: payee1PaidUnpaid,
