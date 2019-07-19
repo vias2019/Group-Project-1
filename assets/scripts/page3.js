@@ -1,21 +1,10 @@
 var selectedPayee = '';
 
 $(document).ready(function () {
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyAGQQkCjZtQ1ICyrEoGqO5YW4x5NnP4GdU",
-        authDomain: "buytogether-ba185.firebaseapp.com",
-        databaseURL: "https://buytogether-ba185.firebaseio.com",
-        projectId: "buytogether-ba185",
-        storageBucket: "",
-        messagingSenderId: "869661137897",
-        appId: "1:869661137897:web:e1006f299e6d65cd"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    var database = firebase.database();
-    var buyTogetherFirebase = database.ref();
-
+   
+    var buyTogetherFirebase = DB.ref();
+    
+    var orderDB = DB.ref('orders');
 
     var payee1, payee2, payee3,productprice, paid1, paid2, paid3, orderID, time;
     var pay1=0;
@@ -177,22 +166,11 @@ $(document).ready(function () {
         }
     }
 
-    //$('#nextcomplete-order').on('click', function (e){
     $(document).on('click', '#nextcomplete-order', function (e) {
         e.preventDefault();
         console.log('Hi');
        
         checkIfTimeIsUp();
 
-       
-        
-        // setTimeout(function () {
-        //     window.location.href = "page1.html";
-        // },2000);
-
-
     });
-
 });
-//ZE4DFTUZX
-//Lk7IeirGSCJIfaRd328
