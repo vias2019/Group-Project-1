@@ -15,7 +15,6 @@ $(document).ready(function () {
     var buyTogetherFirebase = database.ref();
 
     var payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3, orderID;
-    var option;
     $('#retrieve-order').on('click', function (e) {
         e.preventDefault();
         orderID=$('#sale-id').val();
