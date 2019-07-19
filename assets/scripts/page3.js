@@ -14,27 +14,37 @@ $(document).ready(function () {
     var database = firebase.database();
     var buyTogetherFirebase = database.ref();
 
-    var payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3, orderID;
+
+    var payee1, payee2, payee3,productprice, paid1, paid2, paid3, orderID, time;
+    var pay1=0;
+    var pay2=0;
+    var pay3=0;
+    var option;
+    var objectName;
+
     $('#retrieve-order').on('click', function (e) {
         e.preventDefault();
         orderID=$('#sale-id').val();
         console.log('are we here?');
 
         buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).limitToFirst(1).on("value", function (snapshot) {
+            objectName=snapshot.val();
+            console.log(snapshot.val());
+            console.log('Key name is: ', Object.keys(snapshot.val())[0]);
             snapshot.forEach(function (data) {
-            console.log(data.val()) ;  
-            console.log(data.val());
-            console.log(data.child(orderID).val());
-            payee1 = data.val().payee1Name;
-            payee2 = data.val().payee2Name;
-            payee3 = data.val().payee3Name;
-            pay1 = data.val().payee1Pay;
-            pay2 = data.val().payee2Pay;
-            pay3 = data.val().payee3Pay;
-            productprice = data.val().price;
-            paid1 = data.val().paid1;
-            paid2 = data.val().paid2;
-            paid3 = data.val().paid3;
+                console.log(data.val());  
+                console.log(data.child(orderID).val());
+                payee1 = data.val().payee1Name;
+                payee2 = data.val().payee2Name;
+                payee3 = data.val().payee3Name;
+                pay1 = data.val().payee1Pay;
+                pay2 = data.val().payee2Pay;
+                pay3 = data.val().payee3Pay;
+                productprice = data.val().price;
+                paid1 = data.val().paid1;
+                paid2 = data.val().paid2;
+                paid3 = data.val().paid3;
+                time=data.val().time;
             });
             
             //var nameSnapshot = snapshot.child("name");
@@ -47,11 +57,11 @@ $(document).ready(function () {
                // text="+ payee1 +"
 
             );
-            console.log('payees2: ', orderID, payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3);
+            console.log('payees2: ', orderID, payee1, payee2, payee3, pay1, pay2, pay3, productprice, paid1, paid2, paid3, time);
             var option = $('option:selected').val();
             console.log(option);
         });
-        // bCNE65uFl
+        // cobT9wtLp
 
     });
 
@@ -116,18 +126,66 @@ $(document).ready(function () {
         );
        
     });
-    $('#next-complete-order').on('click', function (e) {
+
+    console.log('initializing click event');
+    //$('#nextcomplete-order').on('click', function (e){
+    $(document).on('click', '#nextcomplete-order', function (e) {
         e.preventDefault();
+        console.log('Hi');
 
-        //update firebase
+        function checkIfTimeIsUp() {
+            buyTogetherFirebase.orderByChild('orderId').equalTo($('#sale-id').val()).on("value", function (snapshot) {
+                console.log(snapshot.key);
+                var currentTime = moment().unix();
+                console.log(snapshot);
+                if (currentTime >= time) {
+                    //add message "You run out of time, your order will be deleted"
+                    //delete record from firebase
+                    snapshot.key.remove();
+                } else {
+                    if ((pay1 + pay2 + pay3) == price) {
+                        //add message "The order # is complete. Thank you for shopping with us!"
+                    } else {
+                        //add message "The order # will be complete when all payees pay"
+                         //update firebase
+                         if ($('#nextcheckbox').is(':checked')) {
+                            if($('option:selected').val()==payee1){
+                            // push paid2=paid 
+                            firebase.database().ref().child(objectName).update 
+                            ({
+                                "paid1": "paid1"
+                              });
+                         }
+                        else if($('option:selected').val()==payee2){
+                            // push paid3=paid
+                            firebase.database().ref().child(objectName).update 
+                            ({
+                                "paid2": "paid2"
+                              });
+                         }
+                         else if($('option:selected').val()==payee3){
+                            // push paid3=paid
+                            firebase.database().ref().child(objectName).update 
+                            ({
+                                "paid3": "paid3"
+                              });
+                         }
+                         else{return;}
+                        }
+                    }
 
-        //check if total paid amount ==price,
-        //if not, message "You paid your share for order# XXX, HH:MM left for all payees to pay"
-        //if order paid in full "Congrats! Order#XXX is complete!"
-        //add message
-        setTimeout(function () {
-            window.location.href = "page1.html";
-    },30000);
+                }
+
+
+            });
+        }
+        checkIfTimeIsUp();
+
+       
+        
+        // setTimeout(function () {
+        //     window.location.href = "page1.html";
+        // },2000);
 
 
     });
