@@ -1,8 +1,7 @@
 function validatePayments(itemPrice) {
     // No item price... something is wrong.
     if (!itemPrice) {
-        // TODO - use modal
-        alert('No item price found! Try again.');
+        displayError('No item price found! Try again.');
         return false;
     }
 
@@ -16,10 +15,7 @@ function validatePayments(itemPrice) {
 
         // Verify all payees have a valid payment amount
         if ($input === '') {
-            // TODO - use modal
-            alert(
-                'All payees must have a payment amount specified in order to create the order.'
-            );
+            displayError('All payees must have a payment amount specified in order to create the order.')
             $(this).focus();
             valid = false;
             return false;
@@ -27,8 +23,7 @@ function validatePayments(itemPrice) {
 
         let paymentValue = parseFloat($input);
         if (Number.isNaN(paymentValue) || paymentValue === 0.0) {
-            // TODO - use modal
-            alert(`${$input} is not a valid payment amount. Try again.`);
+            displayError(`${$input} is not a valid payment amount. Try again.`);
             $(this).focus();
             valid = false;
             return false;
@@ -41,8 +36,7 @@ function validatePayments(itemPrice) {
 
     // Verify sum of payments matches item price
     if (valid && sum !== itemPrice) {
-        // TODO - use modal
-        alert(
+        displayError(
             `The total sum of payments must equal the product cost. A sum of $${sum.toFixed(
                 2
             )} was entered, but the item price is $${itemPrice.toFixed(2)}.`
@@ -60,11 +54,12 @@ function validatePayeeNames() {
 
     let payees = $('#payees .payee');
     payees.each(function() {
-        let name = $(this).val().trim();
+        let name = $(this)
+            .val()
+            .trim();
         if (name === '') {
-            // TODO - show error modal
             valid = false;
-            alert('Payee name is missing!');
+            displayError('Payee name is missing!');
             $(this).focus();
             return false;
         }
@@ -86,7 +81,7 @@ function createImageCarousel(images) {
     // Create bootstrap carousel
     let $carouselDiv = $('<div>')
         .addClass('carousel slide')
-        .attr({ 'id': 'productCarousel', 'data-ride': 'carousel' });
+        .attr({ id: 'productCarousel', 'data-ride': 'carousel' });
     let $inner = $('<div>').addClass('carousel-inner');
 
     images.forEach((image, index) => {
@@ -108,8 +103,8 @@ function createImageCarousel(images) {
     let $prev = $('<a>')
         .addClass('carousel-control-prev')
         .attr({
-            'href': '#productCarousel',
-            'role': 'button',
+            href: '#productCarousel',
+            role: 'button',
             'data-slide': 'prev'
         });
     $prev.append(
@@ -123,8 +118,8 @@ function createImageCarousel(images) {
     let $next = $('<a>')
         .addClass('carousel-control-next')
         .attr({
-            'href': '#productCarousel',
-            'role': 'button',
+            href: '#productCarousel',
+            role: 'button',
             'data-slide': 'next'
         });
     $next.append(
@@ -202,6 +197,30 @@ function initFirebaseDB() {
     var database = firebase.database();
 
     return database.ref();
+}
+
+function clearError() {
+    $('#error-message').empty();
+}
+function displayError(errorMessage) {
+    let $error = $('<div>')
+        .addClass('alert alert-danger alert-dismissible fade show text-center')
+        .attr('role', 'alert')
+        .text(errorMessage);
+    let $closeBtn = $('<button>')
+        .addClass('close')
+        .attr({
+            type: 'button',
+            'data-dismiss': 'alert',
+            'aria-label': 'Close'
+        });
+    let $span = $('<span>')
+        .attr('aria-hidden', 'true')
+        .html('&times;');
+    $closeBtn.append($span);
+    $error.append($closeBtn);
+
+    $('#error-message').append($error);
 }
 
 $(document).ready(function() {
@@ -313,8 +332,7 @@ $(document).ready(function() {
 
         // If NaN or not valid format -> clear and show error
         if (Number.isNaN(parsed) || parsed <= 0.0 || !pattern.test($input)) {
-            // TODO - use modal for error.
-            alert(
+            displayError(
                 `${$input} is not a valid price. Please enter a positive dollar amount.`
             );
             $(this)
@@ -340,6 +358,7 @@ $(document).ready(function() {
 
     $('#page2button').on('click', function(event) {
         event.preventDefault();
+        clearError();
 
         // Do not proceed with the order submission if any payment values
         // are invalid.
