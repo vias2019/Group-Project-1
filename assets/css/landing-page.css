@@ -3,16 +3,28 @@
     margin: 0;
     padding: 0;
 }
+
 html,
 body {
     height: 100%;
 }
 
 body {
+    background-color: #08090b;
     background-image: url(../images/picture.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+#main {
+    flex: 1 0 auto;
+}
+
+.fa-money-bill {
+    color: green;
 }
 
 #intro.jumbotron {
@@ -31,11 +43,14 @@ a:hover {
     text-decoration: none;
 }
 
-.push,
 #contributors {
     height: 50px;
     color: white;
     text-shadow: 1px 1px black;
     padding: 25px;
-    font-size: 25px;
+    flex-shrink: 0;
+}
+
+#contributors li {
+    font-size: 40px;
 }
