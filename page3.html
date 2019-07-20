@@ -10,6 +10,15 @@
         <!-- Link to Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
 
         <!-- Link to the jQuery Library -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -54,8 +63,15 @@
             <!-- Heading -->
             <div class="row my-4">
                 <div class="col-md-12">
-                    <h2 class="display-5 font-weight-bold">Step 2 - Make Payments</h2>
+                    <h2 class="display-5 font-weight-bold">Step 2 - Order Processing</h2>
                     <hr class="my-4">
+                </div>
+            </div>
+
+            <!-- Put messages here -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="error-message"></div>
                 </div>
             </div>
 
@@ -68,78 +84,87 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Order ID</span>
                             </div>
-                            <input type="text" class="form-control" id="sale-id">
-                            <button id='retrieve-order' type="button" class="btn btn-primary btn-lg mx-2 px-4">Submit</button>
+                            <input type="text" class="form-control" id="sale-id" maxlength="9">
+                            <button id='retrieve-order' type="button"
+                                class="btn btn-primary btn-lg mx-2 px-4">Submit</button>
                         </div>
                     </form>
 
                 </div>
             </div>
 
-            <!-- Order Details -->
-            <div class="row my-4">
+            <hr class="my-4">
+
+            <!-- Expiration warning -->
+            <div class="row mb-3">
                 <div class="col-md-12">
-                    <label for="payee-name">Select Your Name<br> </label>
-                    <select id="payee-name">
-                        <!-- <option id=" option1" value=''>Payer 2</option>
-                        <option id=" option1" value=''>Payer 3</option>
-                        <option id=" option1" value=''>Payer 4</option> -->
-                    </select>
+                    <div id='warning' class="d-none alert alert-warning text-center m-0" role='alert'>
+                        <h5 class="m-0">Order expires in:
+                            <span id='expiration-timer' class='text-monospace'></span>
+                        </h5>
+                    </div>
                 </div>
             </div>
 
-            <!-- TODO - need to load product info from DB  -->
-            <!-- <div class="row">
+            <!-- Status messages -->
+            <div class="row">
                 <div class="col-md-12">
-                    <div class='product-info'>
-                        <span><img id='picture' src="" alt="Picture"></span>
-                        <span id='product-name'>Product Name</span>
-                        <span id='product-price'>Price</span>
+                    <div id="status-message"></div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-8">
+
+                    <!-- Order Details -->
+                    <div id="order-details" class="d-none">
+
+                        <!-- Order Info -->
+                        <div class="card shadow mb-3">
+                            <div class="card-header">
+                                <h5>Order ID: <strong><span id="order-id"></span></strong></h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">Funding Progress:</h6>
+                                <div class="progress font-weight-bold mb-3" style="height: 35px">
+                                    <div id="order-progress" class="progress-bar" role="progressbar" aria-valuenow="75"
+                                        aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                                        <span id="paid-total"></span>
+                                    </div>
+                                </div>
+                                <div id="payee-table">
+                                    <!-- Payee table loaded here -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Payment Processing -->
+                        <div id='payment-card' class="card shadow mb-3">
+                            <div class="card-header">
+                                <h5>Payments</h5>
+                            </div>
+                            <div class="card-body">
+
+                                <div id="name-select" class="mb-3">
+                                    <!-- Payee options load here -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-md-4">
+                    <div id="product-info">
+                        <!-- Order details loaded here -->
                     </div>
                 </div>
-            </div> -->
-            <snap id="product-info"></snap>
 
-            <!-- TODO - cleanup and determine what is needed -->
-            <div class="row my-4">
-                <div class="col-md-12">
-
-                    <span id='nextpayee1'>
-                        <!-- <h2>Order ID#:</h2><span id="orderID"></span> -->
-                        <!-- <input type='number' class="form-control" id="price1" placeholder="Amount Paid">
-                            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
-                            <span>Paid</span> -->
-                        <!-- <table class="table">
-                                <thead class="paid-shares">
-                                  <tr>
-                                    <th scope="col">Payee name</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Paid</th>
-                                  </tr>
-                                </thead>
-                                <tbody id='show-table'>
-                                  <!-- <tr> -->
-                        <!-- <th scope="row">Train A</th>
-                                    <td>New-York</td>
-                                    <td>25 </td>
-                                    <td>12:55</td>
-                                    <td>10</td> -->
-                        <!-- </tr> -->
-                        <!-- </tbody>
-                              </table> -->
-
-                    </span>
-
-                    <span id='payee-step2'>
-                        <!-- <span>Amount to Pay: </span><span id='amount-to-pay'></span>
-                                <span>Name of Payee: </span><span id='next-payee'></span>
-                            <input type='number' class="form-control" id="price2" placeholder="Amount Owed">
-                            <input type='text' class="form-control" id="payee1-name" placeholder='First Last Name'>
-                            <input type="checkbox" name="payment-confirmation" value="paid"> Confirm Your Payment 
-                            <button id='next-complete-order' type="submit" class="btn btn-primary btn-sm">Submit</button> -->
-                    </span>
-
-                </div>
             </div>
 
             <!-- Current Time -->
@@ -152,7 +177,10 @@
         </div>
 
         <!-- Load scripts -->
+        <script src="assets/scripts/classes.js"></script>
+        <script src="assets/scripts/app.js"></script>
         <script src="assets/scripts/page3.js"></script>
 
     </body>
+
 </html>

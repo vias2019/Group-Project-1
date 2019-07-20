@@ -1,3 +1,29 @@
+// Global variable to hold number of payees involved with order
+let payeeCount = 0;
+
+function createNewOrder() {
+    // Create payees associated with order
+    let payees = {};
+    for (let i = 1; i <= payeeCount; i++) {
+        let name = $(`#payee${i}-name`).val();
+        let payment = parseFloat($(`#price${i}`).val());
+        let payed = $(`#checkbox${i}`).is(':checked');
+
+        let newPayee = new Payee(name, payment, payed);
+        payees[i] = newPayee;
+    }
+
+    // Create new order object
+    var newOrder = new Order(orderId, itemName, itemPrice, itemImages, payees);
+
+    // Log new order info
+    console.log('New order created:');
+    console.log(newOrder);
+
+    // Push new order to Firebase DB
+    DB.ref('orders').push(newOrder);
+}
+
 function validatePayments(itemPrice) {
     // No item price... something is wrong.
     if (!itemPrice) {
@@ -15,7 +41,9 @@ function validatePayments(itemPrice) {
 
         // Verify all payees have a valid payment amount
         if ($input === '') {
-            displayError('All payees must have a payment amount specified in order to create the order.')
+            displayError(
+                'All payees must have a payment amount specified in order to create the order.'
+            );
             $(this).focus();
             valid = false;
             return false;
@@ -68,74 +96,6 @@ function validatePayeeNames() {
     return valid;
 }
 
-function createImageCarousel(images) {
-    // If only 1 image, then return in an img element
-    if (images.length === 1) {
-        return $('<img>').attr({
-            id: 'picture',
-            src: itemImages[0],
-            alt: 'product image'
-        });
-    }
-
-    // Create bootstrap carousel
-    let $carouselDiv = $('<div>')
-        .addClass('carousel slide')
-        .attr({ id: 'productCarousel', 'data-ride': 'carousel' });
-    let $inner = $('<div>').addClass('carousel-inner');
-
-    images.forEach((image, index) => {
-        let $newItem = $('<div>')
-            .addClass('carousel-item')
-            .attr('data-interval', '4000');
-        if (index === 0) {
-            $newItem.addClass('active');
-        }
-
-        $newItem.append(
-            $('<img>')
-                .addClass('d-block w-100 card-img-top')
-                .attr({ src: image, alt: `Product image ${index + 1}` })
-        );
-        $inner.append($newItem);
-    });
-
-    let $prev = $('<a>')
-        .addClass('carousel-control-prev')
-        .attr({
-            href: '#productCarousel',
-            role: 'button',
-            'data-slide': 'prev'
-        });
-    $prev.append(
-        $('<span>')
-            .addClass('carousel-control-prev-icon')
-            .attr('aria-hidden', 'true'),
-        $('<span>')
-            .addClass('sr-only')
-            .text('Previous')
-    );
-    let $next = $('<a>')
-        .addClass('carousel-control-next')
-        .attr({
-            href: '#productCarousel',
-            role: 'button',
-            'data-slide': 'next'
-        });
-    $next.append(
-        $('<span>')
-            .addClass('carousel-control-next-icon')
-            .attr('aria-hidden', 'true'),
-        $('<span>')
-            .addClass('sr-only')
-            .text('Next')
-    );
-
-    $carouselDiv.append($inner, $prev, $next);
-
-    return $carouselDiv;
-}
-
 function loadProductInfo() {
     // Get product info from localstorage and add to screen
     window.itemName = localStorage.getItem('name');
@@ -147,19 +107,10 @@ function loadProductInfo() {
         return false;
     }
 
-    let $info = $('#product-info');
-    let $images = createImageCarousel(itemImages);
-    let $name = $('<p>')
-        .addClass('card-text')
-        .attr('id', 'product-name')
-        .html(itemName);
-    let $price = $('<h5>')
-        .addClass('card-title my-3')
-        .attr('id', 'product-price')
-        .text(`$${itemPrice.toFixed(2)}`);
+    let productCard = createProductCard(itemName, itemPrice, itemImages);
 
-    $info.empty();
-    $info.append($images, $price, $name);
+    $('#product-info').empty();
+    $('#product-info').append(productCard);
 
     console.log('Product info successfully loaded from local storage.');
     return true;
@@ -179,54 +130,7 @@ function makeid() {
     return result;
 }
 
-// Sets up and returns a reference to our Firebase DB
-function initFirebaseDB() {
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: 'AIzaSyAGQQkCjZtQ1ICyrEoGqO5YW4x5NnP4GdU',
-        authDomain: 'buytogether-ba185.firebaseapp.com',
-        databaseURL: 'https://buytogether-ba185.firebaseio.com',
-        projectId: 'buytogether-ba185',
-        storageBucket: '',
-        messagingSenderId: '869661137897',
-        appId: '1:869661137897:web:e1006f299e6d65cd'
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    var database = firebase.database();
-
-    return database.ref();
-}
-
-function clearError() {
-    $('#error-message').empty();
-}
-function displayError(errorMessage) {
-    let $error = $('<div>')
-        .addClass('alert alert-danger alert-dismissible fade show text-center')
-        .attr('role', 'alert')
-        .text(errorMessage);
-    let $closeBtn = $('<button>')
-        .addClass('close')
-        .attr({
-            type: 'button',
-            'data-dismiss': 'alert',
-            'aria-label': 'Close'
-        });
-    let $span = $('<span>')
-        .attr('aria-hidden', 'true')
-        .html('&times;');
-    $closeBtn.append($span);
-    $error.append($closeBtn);
-
-    $('#error-message').append($error);
-}
-
 $(document).ready(function() {
-    // Set up DB connection
-    var buyTogetherFirebase = initFirebaseDB();
-
     // Load product info
     let loaded = loadProductInfo();
     if (!loaded) {
@@ -240,14 +144,14 @@ $(document).ready(function() {
     console.log('New order ID:', orderId);
 
     $('#number-of-payees').change(function() {
-        var numberOfPayees = $('#number-of-payees').val();
-        console.log('Selected number of payees:', numberOfPayees);
+        payeeCount = parseInt($('#number-of-payees').val());
+        console.log('Selected number of payees:', payeeCount);
 
         $('#payees').empty();
 
         // Create form group for each payee
         let $form = $('<form>');
-        for (var i = 1; i <= numberOfPayees; i++) {
+        for (var i = 1; i <= payeeCount; i++) {
             let $formGroup = $('<div>').addClass('form-group');
 
             let $inputGroup = $('<div>').addClass('input-group mb-3');
@@ -373,72 +277,8 @@ $(document).ready(function() {
             return false;
         }
 
-        //add API reference to the three lines below
-        var payee1Name = '';
-        var payee2Name = '';
-        var payee3Name = '';
-        var payee1Pay = '';
-        var payee2Pay = '';
-        var payee3Pay = '';
-
-        //if id exists.....
-        if ($('#payee1-name').length) {
-            payee1Name = $('#payee1-name').val();
-        }
-        if ($('#payee2-name').length) {
-            payee2Name = $('#payee2-name').val();
-        }
-        if ($('#payee3-name').length) {
-            payee3Name = $('#payee3-name').val();
-        }
-        if ($('#price1').length) {
-            payee1Pay = $('#price1').val();
-        }
-        if ($('#price2').length) {
-            payee2Pay = $('#price2').val();
-        }
-        if ($('#price3').length) {
-            payee3Pay = $('#price3').val();
-        }
-
-        var payee1PaidUnpaid = '';
-        var payee2PaidUnpaid = '';
-        var payee3PaidUnpaid = '';
-
-        if ($('#checkbox1').is(':checked')) {
-            payee1PaidUnpaid = 'paid';
-        }
-        if ($('#checkbox2').is(':checked')) {
-            payee2PaidUnpaid = 'paid';
-        }
-        if ($('#checkbox3').is(':checked')) {
-            payee3PaidUnpaid = 'paid';
-        }
-        console.log(payee1PaidUnpaid);
-        console.log('timer:', expiration);
-        var expiration = moment()
-            .add(1, 'hours')
-            .unix();
-
-        var newObjectRecord = {
-
-            orderId: orderId,
-            productPicture: itemImages,
-            productName: itemName,
-            price: itemPrice,
-
-            payee1Name: payee1Name,
-            payee1Pay: payee1Pay,
-            paid1: payee1PaidUnpaid,
-            payee2Name: payee2Name,
-            payee2Pay: payee2Pay,
-            paid2: payee2PaidUnpaid,
-            payee3Name: payee3Name,
-            payee3Pay: payee3Pay,
-            paid3: payee3PaidUnpaid,
-            time: expiration
-        };
-        buyTogetherFirebase.push(newObjectRecord);
+        // Create order
+        createNewOrder();
     });
 
     $('#new-order-close').on('click', () => (window.location = 'page1.html'));
