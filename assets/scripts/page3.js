@@ -263,7 +263,7 @@ $(document).ready(function () {
                     console.log(`Order ${orderId} not found.`);
                 }
             });
-    });
+      });
 
     // When selected payee is changed
     $('#name-select').on('change', '#payeeSelect', function () {
@@ -279,6 +279,7 @@ $(document).ready(function () {
             let rowId = $(this).attr('id');
             if (rowId && rowId === payeeId) {
                 $(this).addClass('table-primary');
+
             }
         });
 

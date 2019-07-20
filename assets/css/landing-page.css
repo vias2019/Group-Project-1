@@ -11,20 +11,15 @@ body {
 body {
     background-image: url(../images/picture.jpg);
     background-position: center;
-    background-size: cover;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    color: white;
-    padding: 25px;
-    font-size: 25px;
+    background-size: auto;
+    background-repeat: no-repeat;
 }
 
 #intro.jumbotron {
     background: none;
     background-color: rgba(0, 0, 0, 0.5);
+    margin-bottom: -50px;
+    min-height: 100%;
     padding: 20px;
 }
 
@@ -34,4 +29,13 @@ p.lead {
 
 a:hover {
     text-decoration: none;
+}
+
+.push,
+#contributors {
+    height: 50px;
+    color: white;
+    text-shadow: 1px 1px black;
+    padding: 25px;
+    font-size: 25px;
 }
