@@ -32,7 +32,9 @@ class Order {
         this.price = price;
         this.images = images;
         this.payees = payees;
-        this.expiration = moment().add(1, 'hours').unix();
+        let expiration = moment().add(1, 'hours');
+        this.expiration = expiration.unix();
+        this.expireTime = expiration.format('HH:mm:ss');
     }
 }
 
