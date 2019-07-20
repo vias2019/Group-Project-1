@@ -199,10 +199,10 @@ $(document).ready(function() {
                 .append($checkbox, ' Confirm Payment');
 
             $formGroup.append(
-                $labelPrice,
-                $inputGroup,
                 $labelPayee,
                 $inputPayee,
+                $labelPrice,
+                $inputGroup,
                 $confirmLabel
             );
 
