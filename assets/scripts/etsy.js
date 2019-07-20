@@ -63,7 +63,7 @@ class EtsyAPI {
     createListingCard(listing) {
         let $card = $('<div>')
             .addClass('card shadow my-3 rounded')
-            .css({'width':'18rem'});
+            .css({'width':'20rem'});
         let $img = $('<img>')
             .attr('src', listing.images[0])
             .addClass('card-img-top');
