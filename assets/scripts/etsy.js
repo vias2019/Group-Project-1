@@ -1,6 +1,6 @@
 const KEY = 'xqmai7gsvwpnhdg8q6ito5w4';
 const API_URL = 'https://openapi.etsy.com/v2';
-const LIMIT = 3;
+const LIMIT = 6;
 
 // Class that provides functions for retrieving and formatting data from the Etsy API
 class EtsyAPI {
@@ -62,7 +62,7 @@ class EtsyAPI {
     // Creates and returns a bootstrap card from the provided listing object
     createListingCard(listing) {
         let $card = $('<div>')
-            .addClass('card shadow my-2 rounded')
+            .addClass('card shadow my-3 rounded')
             .css({'width':'18rem'});
         let $img = $('<img>')
             .attr('src', listing.images[0])
