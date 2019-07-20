@@ -74,8 +74,9 @@ class EtsyAPI {
 
         let priceString = `$${listing.price} ${listing.currency}`;
         if (!listing.isUSD()) {
-            priceString += ` ($${listing.priceUSD} USD)`;
+            priceString = `${listing.price} ${listing.currency} ($${listing.priceUSD} USD)`;
         }
+
         let $price = $('<h5>')
             .text(priceString)
             .addClass('card-title mb-2 text-center');
