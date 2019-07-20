@@ -12,6 +12,14 @@
     object-fit: cover;
 }
 
+.name {
+    text-transform: capitalize;
+}
+
+#paid-total {
+    font-size: 20px;
+}
+
 #product-info .card-img-top {
     height: 30vh;
 }
@@ -28,5 +36,4 @@ h5 {
     color: black;
     letter-spacing: 2px;
     text-shadow: 1px 1px white;
-    /* line-height: 1.5; */
 }

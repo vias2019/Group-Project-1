@@ -15,6 +15,147 @@ firebase.initializeApp(firebaseConfig);
 // Create global reference to our Firebase DB
 const DB = firebase.database();
 
+function createImageCarousel(images) {
+    // If only 1 image, then return in an img element
+    if (images.length === 1) {
+        return $('<img>').attr({
+            id: 'picture',
+            src: itemImages[0],
+            alt: 'product image'
+        });
+    }
+
+    // Create bootstrap carousel
+    let $carouselDiv = $('<div>')
+        .addClass('carousel slide')
+        .attr({ 'id': 'productCarousel', 'data-ride': 'carousel' });
+    let $inner = $('<div>').addClass('carousel-inner');
+
+    images.forEach((image, index) => {
+        let $newItem = $('<div>')
+            .addClass('carousel-item')
+            .attr('data-interval', '4000');
+        if (index === 0) {
+            $newItem.addClass('active');
+        }
+
+        $newItem.append(
+            $('<img>')
+                .addClass('d-block w-100 card-img-top')
+                .attr({ src: image, alt: `Product image ${index + 1}` })
+        );
+        $inner.append($newItem);
+    });
+
+    let $prev = $('<a>')
+        .addClass('carousel-control-prev')
+        .attr({
+            'href': '#productCarousel',
+            'role': 'button',
+            'data-slide': 'prev'
+        });
+    $prev.append(
+        $('<span>')
+            .addClass('carousel-control-prev-icon')
+            .attr('aria-hidden', 'true'),
+        $('<span>')
+            .addClass('sr-only')
+            .text('Previous')
+    );
+    let $next = $('<a>')
+        .addClass('carousel-control-next')
+        .attr({
+            'href': '#productCarousel',
+            'role': 'button',
+            'data-slide': 'next'
+        });
+    $next.append(
+        $('<span>')
+            .addClass('carousel-control-next-icon')
+            .attr('aria-hidden', 'true'),
+        $('<span>')
+            .addClass('sr-only')
+            .text('Next')
+    );
+
+    $carouselDiv.append($inner, $prev, $next);
+
+    return $carouselDiv;
+}
+
+function createProductCard(name, price, images) {
+    let $card = $('<div>').addClass('card shadow mb-3');
+    let $header = $('<div>').addClass('card-header').html('<h5>Product Details</h5>');
+    let $body = $('<div>').addClass('card-body');
+
+    let $images = createImageCarousel(images);
+    let $name = $('<p>')
+        .addClass('card-text')
+        .attr('id', 'product-name')
+        .html(name);
+    let $price = $('<h5>')
+        .addClass('card-title my-3')
+        .attr('id', 'product-price')
+        .text(`$${price.toFixed(2)}`);
+
+    $body.append($images, $price, $name);
+    $card.append($header, $body);
+
+    return $card;
+}
+
+function displayError(errorMessage) {
+    let $error = $('<div>')
+        .addClass('alert alert-danger alert-dismissible fade show text-center')
+        .attr('role', 'alert')
+        .text(errorMessage);
+    let $closeBtn = $('<button>')
+        .addClass('close')
+        .attr({
+            'type': 'button',
+            'data-dismiss': 'alert',
+            'aria-label': 'Close'
+        });
+    let $span = $('<span>')
+        .attr('aria-hidden', 'true')
+        .html('&times;');
+    $closeBtn.append($span);
+    $error.append($closeBtn);
+
+    $('#error-message').append($error);
+}
+
+function clearError() {
+    $('#error-message').empty();
+}
+
+function displayStatus(message) {
+
+    let $status = $('<div>')
+        .addClass('alert alert-success alert-dismissible fade show text-center')
+        .attr('role', 'alert')
+        .html(message);
+    let $closeBtn = $('<button>')
+        .addClass('close')
+        .attr({
+            'type': 'button',
+            'data-dismiss': 'alert',
+            'aria-label': 'Close'
+        });
+    let $span = $('<span>')
+        .attr('aria-hidden', 'true')
+        .html('&times;');
+    $closeBtn.append($span);
+    $status.append($closeBtn);
+
+    clearStatus();
+    $('#status-message').append($status);
+}
+
+function clearStatus() {
+    $('#status-message').empty();
+}
+
 // When DOM content is loaded
 document.addEventListener('DOMContentLoaded', evt => {
 
