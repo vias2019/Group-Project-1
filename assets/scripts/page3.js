@@ -266,7 +266,7 @@ $(document).ready(function () {
                     displayError(message);
                 }
             });
-    });
+      });
 
     // When selected payee is changed
     $('#name-select').on('change', '#payeeSelect', function () {
@@ -282,6 +282,7 @@ $(document).ready(function () {
             let rowId = $(this).attr('id');
             if (rowId && rowId === payeeId) {
                 $(this).addClass('table-primary');
+
             }
         });
 
