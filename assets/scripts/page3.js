@@ -237,6 +237,7 @@ $(document).ready(function () {
     // Event listener for order id submit button click
     $('#retrieve-order').on('click', function (e) {
         e.preventDefault();
+        clearError();
 
         // Get order id input value
         let orderId = $('#sale-id')
@@ -260,7 +261,9 @@ $(document).ready(function () {
                     orderKey = Object.keys(order)[0];
                     updateOrderDetails(order[orderKey]);
                 } else {
-                    console.log(`Order ${orderId} not found.`);
+                    let message = `Order ${orderId} not found.`;
+                    console.log(message);
+                    displayError(message);
                 }
             });
     });
