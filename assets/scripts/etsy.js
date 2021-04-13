@@ -1,4 +1,4 @@
-const KEY = 'xqmai7gsvwpnhdg8q6ito5w4';
+const KEY = 'x5nh0v5r0r4hmlp0x19w03fl';
 const API_URL = 'https://openapi.etsy.com/v2';
 const LIMIT = 6;
 
