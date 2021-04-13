@@ -4,8 +4,7 @@ var firebaseConfig = {
     authDomain: 'buytogether-ba185.firebaseapp.com',
     databaseURL: 'https://buytogether-ba185.firebaseio.com',
     projectId: 'buytogether-ba185',
-    //storageBucket: '',
-    storageBucket: "buytogether-ba185.appspot.com",
+    storageBucket: '',
     messagingSenderId: '869661137897',
     appId: '1:869661137897:web:e1006f299e6d65cd'
 };
