@@ -8,7 +8,8 @@ class Listing {
         this.currency = data.currency_code;
         this.url = data.url;
         this.images = [];
-        this.priceUSD = this.setPriceUSD();
+       //this.priceUSD = this.setPriceUSD();
+       //this.priceUSD = data.price;
     }
 
     isUSD() {
