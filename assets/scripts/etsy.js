@@ -1,6 +1,6 @@
 const KEY = 'xqmai7gsvwpnhdg8q6ito5w4';
 const API_URL = 'https://openapi.etsy.com/v2';
-const LIMIT = 100;
+const LIMIT = 6;
 
 // Class that provides functions for retrieving and formatting data from the Etsy API
 class EtsyAPI {
