@@ -9,7 +9,7 @@ class EtsyAPI {
         $(parentElement).empty();
 
         let resource = 'listings/active.js';
-        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}&min_price=100`;
+        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}&min_price=1`;
 
         $.ajax({
             url: getListingsUrl,
