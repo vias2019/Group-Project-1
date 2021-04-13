@@ -8,8 +8,7 @@ class Listing {
         this.currency = data.currency_code;
         this.url = data.url;
         this.images = [];
-       //this.priceUSD = this.setPriceUSD();
-       //this.priceUSD = data.price;
+        this.priceUSD = this.setPriceUSD();
     }
 
     isUSD() {
@@ -20,8 +19,17 @@ class Listing {
         if (this.currency === 'USD') {
             return this.price;
         }
+        if (this.currency === 'CAD') {
+            return this.price;
+        }
+        if (this.currency === 'GBP') {
+            return this.price;
+        }
+        if (this.currency === 'AUD') {
+            return this.price;
+        }
 
-        return convertToUSD(parseFloat(this.price), this.currency);
+        //return convertToUSD(parseFloat(this.price), this.currency);
     }
 }
 

@@ -9,7 +9,7 @@ class EtsyAPI {
         $(parentElement).empty();
 
         let resource = 'listings/active.js';
-        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}&min_price=1&currency_code=USD`;
+        let getListingsUrl = `${API_URL}/${resource}?limit=${LIMIT}&keywords=${searchTerm}&api_key=${KEY}&min_price=1`;
 
         $.ajax({
             url: getListingsUrl,
@@ -73,9 +73,9 @@ class EtsyAPI {
             .addClass('card-subtitle pb-5');
 
         let priceString = `$${listing.price} ${listing.currency}`;
-        if (!listing.isUSD()) {
-            priceString = `${listing.price} ${listing.currency} ($${listing.priceUSD} USD)`;
-        }
+        // if (!listing.isUSD()) {
+        //     priceString = `${listing.price} ${listing.currency} ($${listing.priceUSD} USD)`;
+        // }
 
         let $price = $('<h5>')
             .text(priceString)
